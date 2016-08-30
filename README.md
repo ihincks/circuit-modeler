@@ -14,7 +14,7 @@ Open the notebook `Install.nb` and follow the directions there.
 This library is in many ways still very basic; it was an overkill project to spare some non-electrical-engineers from having to do some easy calculations by hand. Still, it is very useful if you want to do any of the following easily and symbolically:
 
  - Express circuits as abitrary graphs of lumped elements, much like in SPICE, however, component values can be symbolic.
- - Apply KirchoffsLaws to circuit graphs to get circuit equations in time or Laplace domain.
+ - Apply Kirchoff's laws to circuit graphs to get circuit equations in time or Laplace domain.
  - Compute S (scattering), X, Y matrices of circuits with an arbitrary number of ports. Compute ABCD matrix for two-port devices.
  - Visualize circuit graphs, plot S-parameters, etc.
 
