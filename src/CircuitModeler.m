@@ -127,7 +127,7 @@ GetNodeElements[circuit_, node_]:=GetNodeElements[circuit, {node}]
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Drawing Functions*)
 
 
@@ -215,10 +215,10 @@ CVerbose::usage = "An option for modeler functions which when set to True enable
 KirchhoffsLaws::usage = "KirchhoffsLaws[circuit_Circuit, i_Symbol, v_Symbol] returns {voltageEquations, currentEquations} where voltageEquations and currentEquations are lists of equations that the voltages, v, and the currents, i, have to satisfy according to Kirchhoff's two circuit laws.";
 
 
-CircuitEquation::usage = "CircuitEquation[circuit_Circuit, termOfInterest, i, v, t, order] attempts to find a system of differential equations relating the given term of interest. Order is sort of a nuisance argument; it should be an integer specifying how many times to differentiate all the starting equations before trying to reduce to the final differential equation. For a resistor network this is 0, for an RLC circuit, this is 1, for an RLC with matching capacitor, it is 2, etc.";
+CircuitEquation::usage = "CircuitEquation[circuit_Circuit, termsOfInterest, i, v, t, order] attempts to find a system of differential equations relating the given term of interest. Order is sort of a nuisance argument; it should be an integer specifying how many times to differentiate all the starting equations before trying to reduce to the final differential equation. For a resistor network this is 0, for an RLC circuit, this is 1, for an RLC with matching capacitor, it is 2, etc.";
 
 
-LaplaceCircuitEquation::usage = "LaplaceCircuitEquationcircuit_Circuit, solveFor_, inTermsOf_, i_, v_, s_] attempts to find a system of equations relating the given term of interest.";
+LaplaceCircuitEquation::usage = "LaplaceCircuitEquation[circuit_Circuit, solveFor_, inTermsOf_, i_, v_, s_] attempts to find a system of equations relating the given term of interest.";
 
 
 (* ::Subsection:: *)
@@ -383,7 +383,7 @@ LaplaceCircuitEquation[circuit_Circuit,solveFor_,inTermsOf_,i_,v_,s_,OptionsPatt
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Scattering Parameters*)
 
 

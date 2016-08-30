@@ -1,0 +1,1892 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     70787,       1883]
+NotebookOptionsPosition[     66471,       1734]
+NotebookOutlinePosition[     67112,       1759]
+CellTagsIndexPosition[     66984,       1753]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Tutorial for CircuitModeler", "Chapter",
+ CellChangeTimes->{{3.681555206821247*^9, 3.6815552141498737`*^9}}],
+
+Cell[TextData[{
+ "It is advised that you turn on \[OpenCurlyDoubleQuote]Show open/close icon \
+for cell groups\[CloseCurlyDoubleQuote] in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "\[CloseCurlyQuote]s preferences under the Interface tab. This will put \
+little arrows next to the sections below to make them easier to open and \
+close."
+}], "Text",
+ CellChangeTimes->{{3.681565200376931*^9, 3.681565261800438*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Preamble", "Subsection",
+ CellChangeTimes->{{3.6815552185172243`*^9, 3.681555225204965*^9}}],
+
+Cell["First, import the circuit-modeler library:", "Text",
+ CellChangeTimes->{{3.681555228695554*^9, 3.681555240038361*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<CircuitModeler`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.6815552412688017`*^9, 3.681555247504897*^9}}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Inline Documentation", "Section",
+ CellChangeTimes->{{3.6815553512688828`*^9, 3.681555353995167*^9}}],
+
+Cell[TextData[{
+ "Any symbol publicly defined in CircuitModeler comes with terse inline \
+documentation usage strings, just like functions built-in to ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ". These documentation strings can be accessed by prepending a question mark \
+to the symbol and running the cell. For example,"
+}], "Text",
+ CellChangeTimes->{{3.681555360150689*^9, 3.6815554434173203`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "ScatteringParameters"}]], "Input",
+ CellChangeTimes->{{3.681555431096401*^9, 3.681555433548737*^9}}],
+
+Cell[BoxData[
+ StyleBox["\<\"ScatteringParameters[circuit_Circuit,ports,Z0,s] finds the \
+scattering parameters of the given linear circuit assuming that the \
+impedance, Z0, is the same for all ports. As a usage note, *don't* include \
+the impedances or sources in the input circuit. The input ports should be a \
+list of tuples specifying the nodes you want to use for a given port.\"\>", 
+  "MSG"]], "Print", "PrintUsage",
+ CellChangeTimes->{3.681555433907515*^9},
+ CellTags->"Info3681541033-3429628"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Creating Circuits and Visualizing Them", "Section",
+ CellChangeTimes->{{3.681555256671791*^9, 3.681555271246331*^9}, {
+  3.6815651734336653`*^9, 3.681565173531876*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Components and Nodes", "Subsection",
+ CellChangeTimes->{{3.6815552928799458`*^9, 3.681555298567231*^9}}],
+
+Cell["There are four built-in circuit element types:", "Text",
+ CellChangeTimes->{{3.681555308426661*^9, 3.68155532314253*^9}}],
+
+Cell[BoxData[{"Resistor", "\[IndentingNewLine]", "Capacitor", "\
+\[IndentingNewLine]", "Inductor", "\[IndentingNewLine]", "Source"}], "Input",
+ CellChangeTimes->{{3.681555324991116*^9, 3.681555339007612*^9}}],
+
+Cell["\<\
+For a given circuit element, 3 or 4 arguments are needed to define it. 
+ \[SkeletonIndicator] The first two specify which nodes the circuit is \
+connected to. 
+ \[SkeletonIndicator] The third gives a unique name to the circuit element.
+ \[SkeletonIndicator] For elements with a value, the fourth argument gives \
+the value of the element (ex. resistance), and can be symbolic.\
+\>", "Text",
+ CellChangeTimes->{{3.681555462353998*^9, 3.681555591195462*^9}}],
+
+Cell[TextData[{
+ "For example, here is a resistor named ",
+ StyleBox["$R", "Input"],
+ " with resistance ",
+ StyleBox["R", "Input"],
+ " connected to node ",
+ StyleBox["1", "Input"],
+ " on one end, and node ",
+ StyleBox["2", "Input"],
+ " on the other end."
+}], "Text",
+ CellChangeTimes->{{3.681555602788384*^9, 3.681555618987916*^9}, {
+  3.681555654746982*^9, 3.6815556674523563`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Resistor", "[", 
+  RowBox[{"1", ",", "2", ",", "$R", ",", "R"}], "]"}]], "Input",
+ CellChangeTimes->{{3.681555594788192*^9, 3.681555595633542*^9}, {
+  3.681555670792334*^9, 3.68155567702747*^9}}],
+
+Cell[TextData[{
+ "The dollar signs are not necessary, they are just used by convention in \
+this tutorial to differentiate component names from their values.\nA node can \
+be any undefined symbol or number. This means they can be given readable \
+names: (note ",
+ StyleBox["C1", "Input"],
+ " is used because ",
+ StyleBox["C", "Input"],
+ " is a protected symbol in ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ". A number of sigle letter capital symbols are protected, like ",
+ StyleBox["D", "Input"],
+ " and ",
+ StyleBox["N", "Input"],
+ ")"
+}], "Text",
+ CellChangeTimes->{{3.681555682226802*^9, 3.681555798801024*^9}, {
+  3.681556118927238*^9, 3.681556165854885*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Capacitor", "[", 
+  RowBox[{"$in", ",", "$gnd", ",", "$C", ",", "C1"}], "]"}]], "Input",
+ CellChangeTimes->{{3.681555736133534*^9, 3.681555755755522*^9}}],
+
+Cell["\<\
+The source element type is used to denote a voltage or current source, and \
+does not accept a value argument:\
+\>", "Text",
+ CellChangeTimes->{{3.68155589123974*^9, 3.681555913818277*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Source", "[", 
+  RowBox[{"1", ",", "2", ",", "$S"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6815559151001587`*^9, 3.681555926866741*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Circuits", "Subsection",
+ CellChangeTimes->{{3.68155528007476*^9, 3.681555282673376*^9}, {
+  3.68155580755434*^9, 3.6815558085595207`*^9}}],
+
+Cell[TextData[{
+ "Circuits are formed by connecting nodes together with various circuit \
+elements. These elements are wrapped together with the ",
+ StyleBox["Circuit", "Input"],
+ " head. For example, two resistors in parallel, and two resistors in \
+series:"
+}], "Text",
+ CellChangeTimes->{{3.681555812012793*^9, 3.681555885831114*^9}, {
+  3.681555940492082*^9, 3.681555962848485*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"parallelResistors", "=", 
+   RowBox[{"Circuit", "[", 
+    RowBox[{
+     RowBox[{"Resistor", "[", 
+      RowBox[{"1", ",", "2", ",", "$R1", ",", "R1"}], "]"}], ",", 
+     RowBox[{"Resistor", "[", 
+      RowBox[{"1", ",", "2", ",", "$R2", ",", "R2"}], "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"seriesResistors", "=", 
+   RowBox[{"Circuit", "[", 
+    RowBox[{
+     RowBox[{"Resistor", "[", 
+      RowBox[{"1", ",", "2", ",", "$R1", ",", "R1"}], "]"}], ",", 
+     RowBox[{"Resistor", "[", 
+      RowBox[{"2", ",", "3", ",", "$R2", ",", "R2"}], "]"}]}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.681555966516898*^9, 3.681556011897647*^9}}],
+
+Cell["Or, here are parallel and series RLC circuits:", "Text",
+ CellChangeTimes->{{3.6815560371386642`*^9, 3.6815560549012413`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"parallelRLC", "=", 
+   RowBox[{"Circuit", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Source", "[", 
+      RowBox[{"1", ",", "$gnd", ",", "$S"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Resistor", "[", 
+      RowBox[{"1", ",", "$gnd", ",", "$R", ",", "R"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Inductor", "[", 
+      RowBox[{"1", ",", "$gnd", ",", "$L", ",", "L"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Capacitor", "[", 
+      RowBox[{"1", ",", "$gnd", ",", "$C", ",", "C1"}], "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"seriesRLC", "=", 
+   RowBox[{"Circuit", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Source", "[", 
+      RowBox[{"1", ",", "$gnd", ",", "$S"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Resistor", "[", 
+      RowBox[{"1", ",", "2", ",", "$R", ",", "R"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Inductor", "[", 
+      RowBox[{"2", ",", "3", ",", "$L", ",", "L"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Capacitor", "[", 
+      RowBox[{"3", ",", "$gnd", ",", "$C", ",", "C1"}], "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.6815560564732933`*^9, 3.681556110205222*^9}, {
+  3.681556186579475*^9, 3.681556252690049*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Visualizing Circuits", "Subsection",
+ CellChangeTimes->{{3.6815562576802883`*^9, 3.6815562613354807`*^9}}],
+
+Cell[TextData[{
+ "We can visualize circuits with the ",
+ StyleBox["CircuitGraph", "Input"],
+ " function. ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "\[CloseCurlyQuote]s graph plotting function doesn\[CloseCurlyQuote]t always \
+lay a circuit out in the most intuitive way, but it is way easier to look at \
+then the raw code."
+}], "Text",
+ CellChangeTimes->{{3.6815562669751043`*^9, 3.681556280395912*^9}, {
+  3.681556321289186*^9, 3.681556368424055*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"CircuitGraph", "[", "seriesRLC", "]"}], ",", 
+   RowBox[{"CircuitGraph", "[", "parallelRLC", "]"}]}], "}"}]], "Input",
+ CellChangeTimes->{{3.6815562817474327`*^9, 3.6815563054639387`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0., 0.029945404196222936`}, {1.0000906201270983`, 
+      0.}, {0.031128233665176586`, 1.0299964287193093`}, {1.0300507240971837`,
+       0.999075137178996}}, {
+       {RGBColor[0.5, 0., 0.], Arrowheads[{{0.041285217403800124`, 0.7}}], 
+        {Arrowheads[{{0.5, 0.5, 
+            GraphicsBox[{
+              GrayLevel[0], 
+              InsetBox[
+               BoxData[
+                FormBox[
+                 StyleBox["\"$S\"", StripOnInput -> False], 
+                 TraditionalForm]], {0, 0}, 
+               ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+               GrayLevel[1]]}]}, {0.041285217403800124`, 0.8}}], 
+         ArrowBox[{1, 2}]}, 
+        {Arrowheads[{{0.5, 0.5, 
+            GraphicsBox[{
+              GrayLevel[0], 
+              InsetBox[
+               BoxData[
+                FormBox[
+                 StyleBox["\"$R\"", StripOnInput -> False], 
+                 TraditionalForm]], {0, 0}, 
+               ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+               GrayLevel[1]]}]}, {0.041285217403800124`, 0.8}}], 
+         ArrowBox[{1, 3}]}, 
+        {Arrowheads[{{0.5, 0.5, 
+            GraphicsBox[{
+              GrayLevel[0], 
+              InsetBox[
+               BoxData[
+                FormBox[
+                 StyleBox["\"$L\"", StripOnInput -> False], 
+                 TraditionalForm]], {0, 0}, 
+               ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+               GrayLevel[1]]}]}, {0.041285217403800124`, 0.8}}], 
+         ArrowBox[{3, 4}]}, 
+        {Arrowheads[{{0.5, 0.5, 
+            GraphicsBox[{
+              GrayLevel[0], 
+              InsetBox[
+               BoxData[
+                FormBox[
+                 StyleBox["\"$C\"", StripOnInput -> False], 
+                 TraditionalForm]], {0, 0}, 
+               ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+               GrayLevel[1]]}]}, {0.041285217403800124`, 0.8}}], 
+         ArrowBox[{4, 2}]}}, {InsetBox[
+         FrameBox["1",
+          Background->RGBColor[1, 1, 0.8],
+          FrameStyle->RGBColor[0.94, 0.85, 0.36],
+          StripOnInput->False], 1], InsetBox[
+         FrameBox["$gnd",
+          Background->RGBColor[1, 1, 0.8],
+          FrameStyle->RGBColor[0.94, 0.85, 0.36],
+          StripOnInput->False], 2], InsetBox[
+         FrameBox["2",
+          Background->RGBColor[1, 1, 0.8],
+          FrameStyle->RGBColor[0.94, 0.85, 0.36],
+          StripOnInput->False], 3], InsetBox[
+         FrameBox["3",
+          Background->RGBColor[1, 1, 0.8],
+          FrameStyle->RGBColor[0.94, 0.85, 0.36],
+          StripOnInput->False], 4]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0., 0.029945404196222936`}, {
+       1.0000906201270983`, 0.}, {0.031128233665176586`, 
+       1.0299964287193093`}, {1.0300507240971837`, 0.999075137178996}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[GraphicsComplexBox[CompressedData["
+1:eJxdk30s1HEcx6883KUHiriihxu5KyXXXd0u0yfN80NJKT2sRJSk6/S4JmnJ
+tEZTchx5LNIQXWw9fiNdJ+pCbZcdS+F0x5bRE0r3/fRf3+237z7bZ5/P+/Xb
+68uJlIRGT2UwGBuMH73/na/A+O9EKZuEJdUaD/PxrFs7cg3gqTBrgilKorSa
+6E8zN4Bk1GDKSlWRRtM8xfYIPfDuLKzOfPiKCBVSj6SKL6Dq9dIUXm8lzCrd
+2bHeAfB90njisOUb0psxq8rEdgC8PdZ/VnHU5EyqbfME6MCvIvG1SKUmV0Oi
+YmJi+qHdbXhyclJNLjNXCASCDtBLu7CGWmW8eXIbzAyMwX5RQ1XgcLka6gO4
+OM/fIYBle7gVVgSV477fzo4WzJ3NEDGXi3lcN53jFycpIb/sTxXNm9k+EaXt
+ew5LvjYjT9/8vNhceQMw9D3PKa+9e7pWlT4IGpfebMmvMvL+kWgjt94Aaa3W
+CXbOlcSHlahe1amHZC2rx8a3hnT650gKxr7A1ro2NsvuHskN5fIXs43/w0R/
+N+68guS4fTtxVDAAlQppKfvifdJzvO+gf7AO8vlBGe6cOsLZG438P+tFYWFh
+daTMiY/8PLEV1nwTvmt8dBs4OC7CfrLFkbdulRom2IDzPq3c5X6usAUY/bW4
+70a3zDN1rgpGOVmYRyub1iiUNUFK34uPNO+yUvuXkdwGYHtdkFIes8B0+weZ
+j8BvnT/yFm/LQP5wxSyZsQaRnRj5eQ/8KD9YyM8iP6uIR/lhJ0uO/Ina73Qf
+TBMuRf60IpsaYx6Y4/ID+VM6imleiE3SIf/NrvOUB+7GH0D+mpEEygvPPFcj
+f7JUjjXYrkZ+p8Fq7L/l4YL8wiPvcF5JXSTyhzwNwn15mgLk10qE82iewW5L
+5J8hi8O89604yJ/j+QF53LnZyD9QVIG8PuJc9N/b15r6D7tbGDrqf1zwOPUF
+hMuL0P9PJm7Uf1i/5hT6X5YQTn2DodND6P+xCg31Ee5dsUH/x8vDqa8QUe6A
+/ofellGfYW1iLPLLDjCNr/AtdO0RI/9039lYzxxpR/8vm1dj/7GmF+h/mlyK
+83SB+9D/S/NHcZ9AIEb/LTacxDxjg9fQ/0PMEMw79NhyP/W/dvMCM8pjsK5E
+/1OsRMj7F/4c8lg=
+      "], {
+       {RGBColor[0.5, 0., 0.], Arrowheads[{{0.041582132564841494`, 0.7}}], 
+        {Arrowheads[{{0.5, 0.5, 
+            GraphicsBox[{
+              GrayLevel[0], 
+              InsetBox[
+               BoxData[
+                FormBox[
+                 StyleBox["\"$S, $R, $L, $C\"", StripOnInput -> False], 
+                 TraditionalForm]], {0, 0}, 
+               ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+               GrayLevel[1]]}]}, {0.041582132564841494`, 0.8}}], 
+         ArrowBox[{1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+           2}]}, ArrowBox[{1, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 
+         31, 32, 33, 34, 2}], 
+        ArrowBox[{1, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 
+         49, 50, 2}], 
+        ArrowBox[{1, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 
+         65, 66, 2}]}, {InsetBox[
+         FrameBox["1",
+          Background->RGBColor[1, 1, 0.8],
+          FrameStyle->RGBColor[0.94, 0.85, 0.36],
+          StripOnInput->False], 1], InsetBox[
+         FrameBox["$gnd",
+          Background->RGBColor[1, 1, 0.8],
+          FrameStyle->RGBColor[0.94, 0.85, 0.36],
+          StripOnInput->False], 2]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1., 0.}, {0., 8.979318433952318*^-11}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]]}], "}"}]], "Output",
+ CellChangeTimes->{3.681556305854702*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Circuit Equations", "Section",
+ CellChangeTimes->{{3.681556503908822*^9, 3.681556506400099*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Kirchhoff\[CloseCurlyQuote]s Laws", "Subsection",
+ CellChangeTimes->{{3.6815565082328663`*^9, 3.6815565260438833`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "KirchhoffsLaws"}]], "Input",
+ CellChangeTimes->{{3.681556575895607*^9, 3.681556579634314*^9}}],
+
+Cell[BoxData[
+ StyleBox["\<\"KirchhoffsLaws[circuit_Circuit, i_Symbol, v_Symbol] returns \
+{voltageEquations, currentEquations} where voltageEquations and \
+currentEquations are lists of equations that the voltages, v, and the \
+currents, i, have to satisfy according to Kirchhoff's two circuit laws.\"\>", 
+  "MSG"]], "Print", "PrintUsage",
+ CellChangeTimes->{3.681556579965227*^9},
+ CellTags->"Info3681542179-3429628"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The function ",
+ StyleBox["KirchhoffsLaws[", "Input"],
+ StyleBox["circuit", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["i", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["v", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " applies Kirchhoff\[CloseCurlyQuote]s current law to every node of the \
+circuit graph, and applies Kirchoff\[CloseCurlyQuote]s voltage law to every \
+closed loop of the graph and returns a set of equations for each. The inputs ",
+ StyleBox["i", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["v", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " tell the function what symbols to use to represent voltage and current."
+}], "Text",
+ CellChangeTimes->{{3.6815565982575207`*^9, 3.681556640022914*^9}, {
+  3.681556680609817*^9, 3.681556790228712*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"KirchhoffsLaws", "[", 
+  RowBox[{"parallelRLC", ",", "i", ",", "v"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"KirchhoffsLaws", "[", 
+  RowBox[{"seriesRLC", ",", "i", ",", "v"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.6815565134280357`*^9, 3.6815565595722027`*^9}, {
+  3.6815569349543133`*^9, 3.681556942929248*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["i", "$C"], "\[Equal]", 
+     RowBox[{
+      RowBox[{"-", 
+       SubscriptBox["i", "$L"]}], "-", 
+      SubscriptBox["i", "$R"], "-", 
+      SubscriptBox["i", "$S"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["v", "$R"], "\[Equal]", 
+      SubscriptBox["v", "$S"]}], ",", 
+     RowBox[{
+      SubscriptBox["v", "$L"], "\[Equal]", 
+      SubscriptBox["v", "$S"]}], ",", 
+     RowBox[{
+      SubscriptBox["v", "$C"], "\[Equal]", 
+      SubscriptBox["v", "$S"]}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.681556538008568*^9, 3.681556559882607*^9}, {
+  3.681556936857373*^9, 3.681556943292761*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["i", "$R"], "\[Equal]", 
+      RowBox[{"-", 
+       SubscriptBox["i", "$S"]}]}], ",", 
+     RowBox[{
+      SubscriptBox["i", "$L"], "\[Equal]", 
+      RowBox[{"-", 
+       SubscriptBox["i", "$S"]}]}], ",", 
+     RowBox[{
+      SubscriptBox["i", "$C"], "\[Equal]", 
+      RowBox[{"-", 
+       SubscriptBox["i", "$S"]}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["v", "$C"], "\[Equal]", 
+     RowBox[{
+      RowBox[{"-", 
+       SubscriptBox["v", "$L"]}], "-", 
+      SubscriptBox["v", "$R"], "+", 
+      SubscriptBox["v", "$S"]}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.681556538008568*^9, 3.681556559882607*^9}, {
+  3.681556936857373*^9, 3.681556943294785*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Circuit Equation", "Subsection",
+ CellChangeTimes->{{3.68155686172009*^9, 3.681556870845405*^9}}],
+
+Cell[TextData[{
+ "The function ",
+ StyleBox["CircuitEquation[", "Input"],
+ StyleBox["circuit", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["termsOfInterest", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["i", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["v", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["t", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["order", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " attempted to find a set of equations in the time domain which involve only \
+the terms of interest.",
+ StyleBox[" i ", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ "and",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    StyleBox[" ",
+     FontWeight->"Bold",
+     FontSlant->"Italic"], 
+    StyleBox["v", "Input",
+     FontWeight->"Plain"]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " are the symbols for current and voltage, ",
+ StyleBox["t", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is the symbol for time, and order is a nuisance argument which should be \
+set to an integer specifying how many times to differentiate all of the \
+starting \nequations before trying to reduce. For a resistor network, this is \
+0, for an RLC circuit, this is 1, for an RLC with matching capatitor, it is \
+2, etc."
+}], "Text",
+ CellChangeTimes->{{3.6815574982024*^9, 3.681557519914424*^9}, {
+   3.681557560826639*^9, 3.6815576693424253`*^9}, 3.681557747661566*^9}],
+
+Cell[TextData[{
+ "Terms are entered in the format, for example, ",
+ StyleBox["i[$L,2,t]", "Input"],
+ " which refers to the second derivative of the current through component ",
+ StyleBox["$L", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.681557674892886*^9, 3.6815577158358183`*^9}}],
+
+Cell["\<\
+Note that it may not be possible to solve for the desired terms, in which \
+case, some other terms will probably be in there. Choosing the order \
+parameter and the terms of interest involves some intuition about your \
+circuit.\
+\>", "Text",
+ CellChangeTimes->{{3.681557859490443*^9, 3.6815579402298727`*^9}}],
+
+Cell["\<\
+In the following example, we get a set of equations that depend only on the \
+derivative of the inductor\[CloseCurlyQuote]s current, the voltage of the \
+source, and the current through the capacitor.\
+\>", "Text",
+ CellChangeTimes->{{3.681557806606043*^9, 3.681557837690173*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CircuitEquation", "[", 
+  RowBox[{"parallelRLC", ",", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"i", "[", 
+      RowBox[{"$L", ",", "1", ",", "t"}], "]"}], ",", 
+     RowBox[{"i", "[", 
+      RowBox[{"$S", ",", "0", ",", "t"}], "]"}], ",", 
+     RowBox[{"i", "[", 
+      RowBox[{"$C", ",", "0", ",", "t"}], "]"}]}], "}"}], ",", " ", "i", ",", 
+   " ", "v", ",", " ", "t", ",", " ", "1"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6815568875777884`*^9, 3.6815568905668087`*^9}, {
+  3.6815569476502237`*^9, 3.681556985504422*^9}, {3.6815570709799013`*^9, 
+  3.681557102513668*^9}, {3.681557155954754*^9, 3.681557198997196*^9}, {
+  3.681557231579246*^9, 3.6815572569554234`*^9}, {3.681557301814398*^9, 
+  3.681557328308838*^9}, {3.681557366207292*^9, 3.681557467630824*^9}, {
+  3.681557524882999*^9, 3.681557557308462*^9}, {3.681563524455525*^9, 
+  3.681563571430744*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"R", " ", 
+     RowBox[{"i", "[", 
+      RowBox[{"$C", ",", "0", ",", "t"}], "]"}]}], "+", 
+    RowBox[{"R", " ", 
+     RowBox[{"i", "[", 
+      RowBox[{"$L", ",", "0", ",", "t"}], "]"}]}], "+", 
+    RowBox[{"L", " ", 
+     RowBox[{"i", "[", 
+      RowBox[{"$L", ",", "1", ",", "t"}], "]"}]}], "+", 
+    RowBox[{"R", " ", 
+     RowBox[{"i", "[", 
+      RowBox[{"$S", ",", "0", ",", "t"}], "]"}]}]}], "\[Equal]", "0"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.6815569530087337`*^9, 3.681556987762702*^9}, {
+  3.681557078262721*^9, 3.6815571035243597`*^9}, {3.681557158775429*^9, 
+  3.681557199580443*^9}, {3.681557232464834*^9, 3.681557261414723*^9}, {
+  3.681557303829742*^9, 3.6815573291087017`*^9}, {3.681557371595634*^9, 
+  3.681557423156089*^9}, {3.681557458037922*^9, 3.681557468487184*^9}, {
+  3.681557555467655*^9, 3.6815575576903954`*^9}, {3.681563538626689*^9, 
+  3.6815635719338512`*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Laplace Circuit Equation", "Subsection",
+ CellChangeTimes->{{3.681557951982147*^9, 3.681557958144066*^9}}],
+
+Cell[TextData[{
+ "The function ",
+ StyleBox["LaplaceCircuitEquation[", "Input"],
+ StyleBox["circuit", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["solveFor", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["inTermsOf", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["i", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["v", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["s", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " is the Laplace domain analog of the function ",
+ StyleBox["CircuitEquation", "Input"],
+ " in the previous section. Since moving to the Laplace domain reduces \
+solving DE\[CloseCurlyQuote]s to solving algebra (which is easier for ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "), this function is somewhat more robust than ",
+ StyleBox["CircuitEquation", "Input"],
+ ".\nThe argument ",
+ StyleBox["solveFor", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is a current or voltage across an element (or list of), and ",
+ StyleBox["inTermsOf", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is a current or voltage across an element (or list of). ",
+ StyleBox["s", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is the Laplace domain symbol conjugate to time."
+}], "Text",
+ CellChangeTimes->{{3.68155797680864*^9, 3.681558079503847*^9}, {
+  3.68155987827763*^9, 3.68155996361259*^9}}],
+
+Cell["\<\
+For example, consider the following matched RLC circuit with a source in \
+series with a resistive impedance Rs:\
+\>", "Text",
+ CellChangeTimes->{{3.681559598471427*^9, 3.6815596068873167`*^9}, {
+  3.681559689335391*^9, 3.681559704658862*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"matchedRLC", "=", 
+   RowBox[{"Circuit", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Capacitor", "[", 
+      RowBox[{"$in", ",", "2", ",", "$Cm", ",", "Cm"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Capacitor", "[", 
+      RowBox[{"2", ",", "$gnd", ",", "$Ct", ",", "Ct"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Inductor", "[", 
+      RowBox[{"2", ",", "1", ",", "$L", ",", "L"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Resistor", "[", 
+      RowBox[{"1", ",", "$gnd", ",", "$R", ",", "R"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Resistor", "[", 
+      RowBox[{"3", ",", "$gnd", ",", "$Rs", ",", "Rs"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Source", "[", 
+      RowBox[{"$in", ",", "3", ",", "$source"}], "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"CircuitGraph", "[", "matchedRLC", 
+  "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.6815596291377983`*^9, 3.681559635643817*^9}, {
+  3.6815597079523563`*^9, 3.6815597863677588`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  TagBox[GraphicsComplexBox[{{1.9460971679754606`, 0.9737999139796503}, {
+    0.8643162610976154, 0.9382585611369811}, {0.8639764022818602, 
+    0.036612134666102025`}, {0., 0.48780693796759494`}, {1.9437481424420304`, 
+    0.}}, {
+     {RGBColor[0.5, 0., 0.], Arrowheads[{{0.03417331513224231, 0.7}}], 
+      {Arrowheads[{{0.5, 0.5, 
+          GraphicsBox[{
+            GrayLevel[0], 
+            InsetBox[
+             BoxData[
+              FormBox[
+               StyleBox["\"$Cm\"", StripOnInput -> False], 
+               TraditionalForm]], {0, 0}, 
+             ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+             GrayLevel[1]]}]}, {0.03417331513224231, 0.8}}], 
+       ArrowBox[{1, 2}]}, 
+      {Arrowheads[{{0.5, 0.5, 
+          GraphicsBox[{
+            GrayLevel[0], 
+            InsetBox[
+             BoxData[
+              FormBox[
+               StyleBox["\"$source\"", StripOnInput -> False], 
+               TraditionalForm]], {0, 0}, 
+             ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+             GrayLevel[1]]}]}, {0.03417331513224231, 0.8}}], 
+       ArrowBox[{1, 5}]}, 
+      {Arrowheads[{{0.5, 0.5, 
+          GraphicsBox[{
+            GrayLevel[0], 
+            InsetBox[
+             BoxData[
+              FormBox[
+               StyleBox["\"$Ct\"", StripOnInput -> False], 
+               TraditionalForm]], {0, 0}, 
+             ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+             GrayLevel[1]]}]}, {0.03417331513224231, 0.8}}], 
+       ArrowBox[{2, 3}]}, 
+      {Arrowheads[{{0.5, 0.5, 
+          GraphicsBox[{
+            GrayLevel[0], 
+            InsetBox[
+             BoxData[
+              FormBox[
+               StyleBox["\"$L\"", StripOnInput -> False], TraditionalForm]], {
+             0, 0}, 
+             ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+             GrayLevel[1]]}]}, {0.03417331513224231, 0.8}}], 
+       ArrowBox[{2, 4}]}, 
+      {Arrowheads[{{0.5, 0.5, 
+          GraphicsBox[{
+            GrayLevel[0], 
+            InsetBox[
+             BoxData[
+              FormBox[
+               StyleBox["\"$R\"", StripOnInput -> False], TraditionalForm]], {
+             0, 0}, 
+             ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+             GrayLevel[1]]}]}, {0.03417331513224231, 0.8}}], 
+       ArrowBox[{4, 3}]}, 
+      {Arrowheads[{{0.5, 0.5, 
+          GraphicsBox[{
+            GrayLevel[0], 
+            InsetBox[
+             BoxData[
+              FormBox[
+               StyleBox["\"$Rs\"", StripOnInput -> False], 
+               TraditionalForm]], {0, 0}, 
+             ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+             GrayLevel[1]]}]}, {0.03417331513224231, 0.8}}], 
+       ArrowBox[{5, 3}]}}, {InsetBox[
+       FrameBox["$in",
+        Background->RGBColor[1, 1, 0.8],
+        FrameStyle->RGBColor[0.94, 0.85, 0.36],
+        StripOnInput->False], 1], InsetBox[
+       FrameBox["2",
+        Background->RGBColor[1, 1, 0.8],
+        FrameStyle->RGBColor[0.94, 0.85, 0.36],
+        StripOnInput->False], 2], InsetBox[
+       FrameBox["$gnd",
+        Background->RGBColor[1, 1, 0.8],
+        FrameStyle->RGBColor[0.94, 0.85, 0.36],
+        StripOnInput->False], 3], InsetBox[
+       FrameBox["1",
+        Background->RGBColor[1, 1, 0.8],
+        FrameStyle->RGBColor[0.94, 0.85, 0.36],
+        StripOnInput->False], 4], InsetBox[
+       FrameBox["3",
+        Background->RGBColor[1, 1, 0.8],
+        FrameStyle->RGBColor[0.94, 0.85, 0.36],
+        StripOnInput->False], 5]}}],
+   Annotation[#, 
+    VertexCoordinateRules -> {{1.9460971679754606`, 0.9737999139796503}, {
+     0.8643162610976154, 0.9382585611369811}, {0.8639764022818602, 
+     0.036612134666102025`}, {0., 0.48780693796759494`}, {1.9437481424420304`,
+      0.}}]& ],
+  AspectRatio->Automatic,
+  FrameTicks->None,
+  PlotRange->All,
+  PlotRangePadding->Scaled[0.1]]], "Output",
+ CellChangeTimes->{{3.681559777524661*^9, 3.6815597870822697`*^9}}]
+}, Open  ]],
+
+Cell["\<\
+In the following, we solve for the current through the inductor as a function \
+of the voltage across the source. This effectively gives the transfer \
+function between the two elements.\
+\>", "Text",
+ CellChangeTimes->{{3.681559834266574*^9, 3.681559866831375*^9}, {
+  3.6815599877673283`*^9, 3.681560007562994*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LaplaceCircuitEquation", "[", 
+  RowBox[{
+   RowBox[{"Join", "[", 
+    RowBox[{"circuit", ",", 
+     RowBox[{"Circuit", "[", 
+      RowBox[{
+       RowBox[{"Resistor", "[", 
+        RowBox[{"3", ",", "$gnd", ",", "$Rs", ",", "Rs"}], "]"}], ",", 
+       RowBox[{"Source", "[", 
+        RowBox[{"$in", ",", "3", ",", "$source"}], "]"}]}], "]"}]}], "]"}], 
+   ",", 
+   RowBox[{"i", "[", 
+    RowBox[{"$L", ",", "s"}], "]"}], ",", 
+   RowBox[{"v", "[", 
+    RowBox[{"$source", ",", "s"}], "]"}], ",", "i", ",", "v", ",", "s"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.681559811252223*^9, 3.6815598197266693`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"i", "[", 
+    RowBox[{"$L", ",", "s"}], "]"}], "\[Rule]", 
+   FractionBox[
+    RowBox[{"v", "[", 
+     RowBox[{"$source", ",", "s"}], "]"}], 
+    RowBox[{"R", "+", 
+     FractionBox[
+      RowBox[{"Ct", " ", "R"}], "Cm"], "+", "Rs", "+", 
+     FractionBox["1", 
+      RowBox[{"Cm", " ", "s"}]], "+", 
+     RowBox[{"L", " ", "s"}], "+", 
+     FractionBox[
+      RowBox[{"Ct", " ", "L", " ", "s"}], "Cm"], "+", 
+     RowBox[{"Ct", " ", "R", " ", "Rs", " ", "s"}], "+", 
+     RowBox[{"Ct", " ", "L", " ", "Rs", " ", 
+      SuperscriptBox["s", "2"]}]}]]}], "}"}]], "Output",
+ CellChangeTimes->{3.68155982508459*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Scattering Parameters", "Section",
+ CellChangeTimes->{{3.681563605890161*^9, 3.681563610716495*^9}}],
+
+Cell[TextData[{
+ "We can use ",
+ StyleBox["ScatteringParameters[", "Input"],
+ StyleBox["circuit", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["ports", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["Z0", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["s", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " to compute the ",
+ Cell[BoxData[
+  FormBox["S", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " parameter matrix of a circuit over an arbitrary number of ports. Here, \
+ports is a list ",
+ StyleBox["ports", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["={{node11,node12},{node21,node22},...,{nodeN1,nodeN2}}", "Input"],
+ " is a list of ports to do the calculation for, ",
+ StyleBox["Z0", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is the reference impedance of each port, and ",
+ StyleBox["s", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is the Laplace domain independent variable.\nThe j\[CloseCurlyQuote]th \
+column of the scattering matrix is computed by attaching a ",
+ StyleBox["Source", "Input"],
+ " to the j\[CloseCurlyQuote]th port and ",
+ StyleBox["Resistor", "Input"],
+ "s of value ",
+ StyleBox["Z0", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " to all of the other ports of the ",
+ StyleBox["circuit", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ". Then the voltages and currents through ports i and j are solved for using \
+",
+ StyleBox["LaplaceCircuitEquation", "Input"],
+ " in terms of the current through port j. ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["S", "ij"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is computed using (",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      SubscriptBox["V", "i"], "+", 
+      RowBox[{
+       SubscriptBox["Z", "0"], 
+       SubscriptBox["I", "i"]}]}], ")"}], "/", 
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox["V", "j"], "-", 
+      RowBox[{
+       SubscriptBox["Z", "0"], 
+       SubscriptBox["I", "j"]}]}], ")"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". Since each ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["V", "i"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["I", "i"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["V", "j"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["I", "j"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " are linear functions of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["I", "j"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", this variable cancels out in the division and the quantity of interest \
+remains."
+}], "Text",
+ CellChangeTimes->{{3.681563635234806*^9, 3.681563751148326*^9}, {
+  3.681563795249977*^9, 3.6815641043907633`*^9}}],
+
+Cell[TextData[{
+ "Note that because of the way this function works, as described above, the \
+sources and reference impedance should ",
+ StyleBox["not",
+  FontSlant->"Italic"],
+ " be included in the input circuit."
+}], "Text",
+ CellChangeTimes->{{3.6815643716482887`*^9, 3.6815644039457283`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Example: 1-port Capacitor", "Subsubsection",
+ CellChangeTimes->{{3.6815642071290693`*^9, 3.681564212626604*^9}}],
+
+Cell[TextData[{
+ "Compute the 1\[Times]1 scattering matrix of a capacitor of capacitance ",
+ StyleBox["c", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.681564263376405*^9, 3.6815642853949633`*^9}, {
+  3.681564343096057*^9, 3.681564345928206*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ScatteringParameters", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Circuit", "[", 
+     RowBox[{"Capacitor", "[", 
+      RowBox[{"$in", ",", "$out", ",", "$C", ",", "c"}], "]"}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"$in", ",", "$out"}], "}"}], "}"}], ",", "Z0", ",", "s"}], 
+   "\[IndentingNewLine]", "]"}], "//", "MatrixForm"}]], "Input",
+ CellChangeTimes->{{3.681564214857691*^9, 3.6815642586160097`*^9}, {
+  3.681564425254799*^9, 3.681564426342721*^9}, {3.6815646786098833`*^9, 
+  3.681564682657832*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      FractionBox[
+       RowBox[{"1", "-", 
+        RowBox[{"c", " ", "s", " ", "Z0"}]}], 
+       RowBox[{"1", "+", 
+        RowBox[{"c", " ", "s", " ", "Z0"}]}]]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.681564256692474*^9, 3.6815642605963717`*^9}, 
+   3.681564427404929*^9, {3.681564678969328*^9, 3.6815646829186974`*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Example: 2-port Capacitor", "Subsubsection",
+ CellChangeTimes->{{3.68156429272862*^9, 3.6815642971047993`*^9}}],
+
+Cell[TextData[{
+ "Compute the 2\[Times]2 scattering matrix of a shunting resistor of \
+resistance ",
+ StyleBox["R", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.6815643040876017`*^9, 3.681564354904262*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ScatteringParameters", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Circuit", "[", 
+     RowBox[{"Resistor", "[", 
+      RowBox[{"$in", ",", "$out", ",", "$R", ",", "R"}], "]"}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"$in", ",", "$out"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"$in", ",", "$out"}], "}"}]}], "}"}], ",", "Z0", ",", "s"}], 
+   "\[IndentingNewLine]", "]"}], "//", "MatrixForm"}]], "Input",
+ CellChangeTimes->{{3.68156436438946*^9, 3.6815643680857067`*^9}, {
+   3.681564412869075*^9, 3.68156443690189*^9}, 3.681564676708272*^9}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{"-", 
+       FractionBox["Z0", 
+        RowBox[{
+         RowBox[{"2", " ", "R"}], "+", "Z0"}]]}], 
+      FractionBox[
+       RowBox[{"2", " ", "R"}], 
+       RowBox[{
+        RowBox[{"2", " ", "R"}], "+", "Z0"}]]},
+     {
+      FractionBox[
+       RowBox[{"2", " ", "R"}], 
+       RowBox[{
+        RowBox[{"2", " ", "R"}], "+", "Z0"}]], 
+      RowBox[{"-", 
+       FractionBox["Z0", 
+        RowBox[{
+         RowBox[{"2", " ", "R"}], "+", "Z0"}]]}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.6815644311009502`*^9, 3.681564437245407*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Example: Matched RLC single port resonator.", "Subsubsection",
+ CellChangeTimes->{{3.681564480311174*^9, 3.681564499609372*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"S", "=", 
+   RowBox[{"ScatteringParameters", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"matchedRLC", "=", 
+      RowBox[{"Circuit", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Capacitor", "[", 
+         RowBox[{"$in", ",", "2", ",", "$Cm", ",", "Cm"}], "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Capacitor", "[", 
+         RowBox[{"2", ",", "$gnd", ",", "$C", ",", "Ct"}], "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Inductor", "[", 
+         RowBox[{"2", ",", "1", ",", "$L", ",", "L"}], "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Resistor", "[", 
+         RowBox[{"1", ",", "$gnd", ",", "$R", ",", "R"}], "]"}]}], 
+       "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"$in", ",", "$gnd"}], "}"}], "}"}], ",", "Rs", ",", "s"}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"S", "//", "MatrixForm"}]}], "Input",
+ CellChangeTimes->{{3.6815645111321993`*^9, 3.6815645295781517`*^9}, 
+   3.68156456185707*^9, {3.68156461361414*^9, 3.681564694182249*^9}, {
+   3.6815647593181963`*^9, 3.681564798260356*^9}, {3.681564866100924*^9, 
+   3.6815648668911867`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      FractionBox[
+       RowBox[{"1", "+", 
+        RowBox[{"Ct", " ", "s", " ", 
+         RowBox[{"(", 
+          RowBox[{"R", "+", 
+           RowBox[{"L", " ", "s"}]}], ")"}]}], "-", 
+        RowBox[{"Cm", " ", "s", " ", 
+         RowBox[{"(", 
+          RowBox[{"Rs", "-", 
+           RowBox[{"L", " ", "s"}], "+", 
+           RowBox[{"Ct", " ", "L", " ", "Rs", " ", 
+            SuperscriptBox["s", "2"]}], "+", 
+           RowBox[{"R", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", "1"}], "+", 
+              RowBox[{"Ct", " ", "Rs", " ", "s"}]}], ")"}]}]}], ")"}]}]}], 
+       RowBox[{"1", "+", 
+        RowBox[{"Ct", " ", "s", " ", 
+         RowBox[{"(", 
+          RowBox[{"R", "+", 
+           RowBox[{"L", " ", "s"}]}], ")"}]}], "+", 
+        RowBox[{"Cm", " ", "s", " ", 
+         RowBox[{"(", 
+          RowBox[{"R", "+", "Rs", "+", 
+           RowBox[{"L", " ", "s"}], "+", 
+           RowBox[{"Ct", " ", "R", " ", "Rs", " ", "s"}], "+", 
+           RowBox[{"Ct", " ", "L", " ", "Rs", " ", 
+            SuperscriptBox["s", "2"]}]}], ")"}]}]}]]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.681564530080359*^9, 3.681564562239335*^9, {3.68156461970725*^9, 
+   3.681564694993833*^9}, 3.681564798675316*^9, 3.681564867646199*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CircuitGraph", "[", "matchedRLC", "]"}]], "Input",
+ CellChangeTimes->{{3.68156480111445*^9, 3.6815648113866053`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  TagBox[GraphicsComplexBox[{{0., 0.423470590914116}, {1.1144832656722787`, 
+    0.4234579670715625}, {2.0315738034071957`, 0.8469138091131194}, {
+    2.031531516357039, 0.}}, {
+     {RGBColor[0.5, 0., 0.], Arrowheads[{{0.033657343684818236`, 0.7}}], 
+      {Arrowheads[{{0.5, 0.5, 
+          GraphicsBox[{
+            GrayLevel[0], 
+            InsetBox[
+             BoxData[
+              FormBox[
+               StyleBox["\"$Cm\"", StripOnInput -> False], 
+               TraditionalForm]], {0, 0}, 
+             ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+             GrayLevel[1]]}]}, {0.033657343684818236`, 0.8}}], 
+       ArrowBox[{1, 2}]}, 
+      {Arrowheads[{{0.5, 0.5, 
+          GraphicsBox[{
+            GrayLevel[0], 
+            InsetBox[
+             BoxData[
+              FormBox[
+               StyleBox["\"$C\"", StripOnInput -> False], TraditionalForm]], {
+             0, 0}, 
+             ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+             GrayLevel[1]]}]}, {0.033657343684818236`, 0.8}}], 
+       ArrowBox[{2, 3}]}, 
+      {Arrowheads[{{0.5, 0.5, 
+          GraphicsBox[{
+            GrayLevel[0], 
+            InsetBox[
+             BoxData[
+              FormBox[
+               StyleBox["\"$L\"", StripOnInput -> False], TraditionalForm]], {
+             0, 0}, 
+             ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+             GrayLevel[1]]}]}, {0.033657343684818236`, 0.8}}], 
+       ArrowBox[{2, 4}]}, 
+      {Arrowheads[{{0.5, 0.5, 
+          GraphicsBox[{
+            GrayLevel[0], 
+            InsetBox[
+             BoxData[
+              FormBox[
+               StyleBox["\"$R\"", StripOnInput -> False], TraditionalForm]], {
+             0, 0}, 
+             ImageScaled[{0.5, 0.5}], Automatic, None, Background -> 
+             GrayLevel[1]]}]}, {0.033657343684818236`, 0.8}}], 
+       ArrowBox[{4, 3}]}}, {InsetBox[
+       FrameBox["$in",
+        Background->RGBColor[1, 1, 0.8],
+        FrameStyle->RGBColor[0.94, 0.85, 0.36],
+        StripOnInput->False], 1], InsetBox[
+       FrameBox["2",
+        Background->RGBColor[1, 1, 0.8],
+        FrameStyle->RGBColor[0.94, 0.85, 0.36],
+        StripOnInput->False], 2], InsetBox[
+       FrameBox["$gnd",
+        Background->RGBColor[1, 1, 0.8],
+        FrameStyle->RGBColor[0.94, 0.85, 0.36],
+        StripOnInput->False], 3], InsetBox[
+       FrameBox["1",
+        Background->RGBColor[1, 1, 0.8],
+        FrameStyle->RGBColor[0.94, 0.85, 0.36],
+        StripOnInput->False], 4]}}],
+   Annotation[#, 
+    VertexCoordinateRules -> {{0., 0.423470590914116}, {1.1144832656722787`, 
+     0.4234579670715625}, {2.0315738034071957`, 0.8469138091131194}, {
+     2.031531516357039, 0.}}]& ],
+  AspectRatio->Automatic,
+  FrameTicks->None,
+  PlotRange->All,
+  PlotRangePadding->Scaled[0.1]]], "Output",
+ CellChangeTimes->{3.681564811834519*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "We can plot the S parameters with the function ",
+ StyleBox["SParamsPlot", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.6815647280461617`*^9, 3.681564752464418*^9}, {
+  3.6815648748765783`*^9, 3.681564877421052*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Use", " ", "units", " ", "where", " ", "1", "pF"}], "=", 
+     RowBox[{
+      RowBox[{"1", "nH"}], "=", 
+      RowBox[{
+       SuperscriptBox["10", "6"], " ", "so", " ", "that", " ", "MHz", " ", 
+       "is", " ", "the", " ", "natural", " ", "unit"}]}]}], ",", " ", 
+    RowBox[{"and", " ", "quantities", " ", 
+     RowBox[{"aren", "'"}], "t", " ", "so", " ", "crazy", " ", "small", " ", 
+     "or", " ", 
+     RowBox[{"big", "."}]}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"pF", "=", 
+     SuperscriptBox["10", "6"]}], ";", 
+    RowBox[{"nH", "=", 
+     SuperscriptBox["10", "6"]}], ";", 
+    RowBox[{"\[CapitalOmega]", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"params", "=", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Cm", "\[Rule]", 
+        RowBox[{"10", " ", 
+         SuperscriptBox["10", 
+          RowBox[{"-", "12"}]], "pF"}]}], ",", 
+       RowBox[{"Ct", "\[Rule]", 
+        RowBox[{"40", " ", 
+         SuperscriptBox["10", 
+          RowBox[{"-", "12"}]], "pF"}]}], ",", 
+       RowBox[{"L", "\[Rule]", 
+        RowBox[{"100", " ", 
+         SuperscriptBox["10", 
+          RowBox[{"-", "9"}]], "nH"}]}], ",", 
+       RowBox[{"R", "\[Rule]", 
+        RowBox[{"0.5", "\[CapitalOmega]"}]}], " ", ",", 
+       RowBox[{"Rs", "\[Rule]", 
+        RowBox[{"50", "\[CapitalOmega]"}]}]}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"SParamsPlot", "[", 
+    RowBox[{"S", ",", "params", ",", "s", ",", 
+     RowBox[{"{", 
+      RowBox[{"50", ",", "100"}], "}"}], ",", " ", 
+     RowBox[{
+      RowBox[{"20", 
+       RowBox[{"Log10", "[", 
+        RowBox[{"Abs", "[", "#", "]"}], "]"}]}], "&"}], ",", "False", ",", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+     RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
+     RowBox[{"FrameLabel", "->", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Frequency (MHz)\>\"", ",", "\"\<dB\>\""}], "}"}]}]}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.681564821370442*^9, 3.681564826407151*^9}, {
+  3.681564952086458*^9, 3.681565123052775*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{GraphicsBox[{{{}, {}, {
+       Directive[
+        Opacity[1.], 
+        RGBColor[0.368417, 0.506779, 0.709798], 
+        AbsoluteThickness[1.6]], 
+       LineBox[CompressedData["
+1:eJwVV3k4lV8XRQglUyHNA0kqIgmxU36Z7vDee+UqSSoqFUkIGUopTcYiImMZ
+MhOi/ZqlwZwhoclM5qEM3/3+ep/zvPucvdZe6+xzziYrO8ZZHi4urhFuLq7/
+fxm0xwJcXAZwJLrlvwe3/dH5We2dKW4DkH0ys1HkoT9G/BbjG1piAM6NJ4gn
+wf7Y7RbM3bbUAHIMhoozYv3R9VXY3ywRA1i60v3AuhJ/jOWOG7TZYAC+q1Vu
+vV/0x4msvNoabQPgM6yTeOwRgE+lf4RG3TAAy8fhDk/9ArFAqkunls8QAn2E
+nMNkQlD536zrXx9DiOtW23Nq6CmeC3i8feiOITQ/GtE8N/sUI7fJtnTeNYSH
+6r17nflCcTmLvrf8gSH0htaver0uFLtTEv48DjYEYa5RvevUUHxmwTwjG2cI
+j87a3wzLCEWekhQKvdQQTv2907jDIwwb757cmMBtBMLtlFS9PeH44wNNonSJ
+EUypfK/OOxiOIyuAv4vPCA58TvDbR4Tj8pCNg6uFjGDU2nET2z4cD0d/f/NQ
+3AgqdjUNy6WFY3b+adq1LUaw2YCPwrc7AoP7bTwO6xlBkpKKloz6c2QZ27f/
+uGsE70rsPno7ROH4QnrOVz8j8N5gcorLJwoDM0YfNT4wgifHFxfuh0RhneTV
+gxX+RlAXbuRbnReF1O/XEhJDjUB021vl7sUoNHBys7d/ZQRF4ZavCP0XqP3i
+Du9CpREsXdvw0KDjBcpPRCiuXmoMtl6T1gUbYzCKqW6oJWgMlROrD+9VjEHJ
+rAabk8uMYUmS1kT+vhhc4iAUGy9iDGcdz812UWOw44/z6j3SxhCUufFzwo0Y
+DB5g8BttN4bilpN+a77FINdPgS53I2PIf2468C82FlvrHIO6HhvDpOylGWtW
+PM6czM+dDTAGn+K1Lx2t4lF6eL5VPNgYQhpg6pF9PB4V8t2oF2oMWlJaGX0P
+4rFRN+x14gtjSJ2W0N5fEY+1WUWVDhnGUHXxwVqqZgJWhfDP8TYYg/WNibF3
+u1/iG7PQM9slKZDxZ6TlsV4injPdeXm9NAXeN+3nlT6aiNImJc4SMhTwULBZ
+kWadiK70Qb/5dRRwMLzKJ3Q3EbWPQEadLAXUqpdevvYhEctUe+ev76VAb0/S
+nLJJEtaKqD+tZlHgt/NOvQrHZPQW/vQCj1KAtzdYieqbjHuWWSVlsynQFM59
+sicsGYP4HxRFmlPgYfC6Vgom49H5zp8OZyjwdrTwyZBQCrb3+yqtcaSAxK87
+evfjU7C3vPm9bRAFjrPlOjp6X6O9faXU/RAKuLheL7+x+BpnZN6cTXpKAanB
+gpOqkqkoaP+Euy+cg49Yv7vvUCoqyJjst46jwDX3jY2OL1Lx4uX6V5Y5HHzu
+vpXKFmk4IvnJ16SZAmPtmx8+d0pHl+LCJsdWCsi217Tcu5WOXBdTtgR/pcDI
+7QM6Pv7pKFZ8H+s7KVDlJ/A6Nikd99gaTtN6KcCOmNB/3JmOjlhpbThLAf3x
+6M4dxhk4bVOip7OGChtrBWxWKWei6E0eV411VJhIDvgwqp2JChG6qXs3UOHe
+phOD7caZaFFbIqm4hQqzgU3ZnecysUy9tEd6BxXCV5e/DIvORH/BsntjGlTY
+s2eEHF2VhfLJ5Z/ij1GhZM39qRqhbNQt5+OJNqeCynt+21SZbDzeqacWYUEF
+r5iAa5EK2fhIoiIy0IoKud5zmVmG2TjhVmHneYGzfiYtLud+NpLGlWJmrlSw
+Njsfv0ssB82Gq0yWP6MCQ9LXI18hF9fuy3w8H06FwNdtfrFaudjhGf5++DkV
+XLoH+6KpuWgldvlAXTQVPn+TXd3ukIsXVCVknyRSYZIp8MSgMBfdXU9MbMin
+AkXZ68lW5ht8wT8WqNJCBeEnRz1LA/LQivb149Y2KjCjb1Q4JeTh1tAyfsl2
+KjTuZT3TfZuHidufus50UmGlQILX1t95mGmsZVXUQ4UOQthnlUY+lgXeUT4y
+TYXjRaROTW8+9qxfU3tMkgblXWqlVcfeotfKk1QnaRrc+N2R1u/4FmWEYj8G
+yNBAutGrZffjt0idVHhftZ4G2lfTvmwte4vZHzRK1LbR4KCE+1VydyHedDmW
+La5Og6bjl09PCxfhuvqw0GozGiyJ7Xts3PsOcyu/SXYfp0FA4v1jZksR6UWb
+QrgtaHBinnkkUA7R51VigLoVDegaf2vunUXs98j3S7hAA3G5+6WhvxHzdrS6
+33SjgV6N2zg4k8i8LX1K4zkNzGJedvIGFaNHf0q5chQN5H3yn52JK8ZXtIMK
+26NpcH7qTlp7TjEurL4wLhVPg2qLiVDJ1mJMSn17ezKFBu+G407nbixBnhaL
+pPRCGvxpS574nF2CmQrx43LtNNANm2svHS3Fb4/3s9d30MA9fqXZQ/4yFJj8
+VLiqiwYzCzph19aUoQVO3eb9RYPc+j5mrF4ZCrH0pX8M0OCS3EmWa3gZWt0Y
+0Hr+jwb9Z486UijlKNgrXXpPmA6Wvf8ULT9UoNAV/6fPVtDhPPfezMjuClz+
+d+nFZBE6vHzvd3sZTyWuWD698pMYHSLHkzOu7K9EcaUma1FJOkht1A13S6rE
+tS4BQk/X06FedZz4HVKFSgJCjLjddPiqG8WmhlSjcoC3XI4SHcbEdS1U31Tj
+HpnZv+XKdNi46lCvaWs17lXsje1R4eR/d6bGbP0H1KBXTCqo02F8JZ+yWfIH
+PBzKOQaBDlYaQls/131EU/l/Xe8IOgg1aHnvManBFP0jedUMOvAOXZnU9KxB
+nvNBj78w6bBbRyU5JLEGUxN3aA+b0KHqU+e01mIN8u4wD193jA4MD/EMddNa
+TN9ZZOJuRQe70Nb5kBV1yE8V3Hn3NB1ilV1mKXJ1ePyyCW/wGTocCvjSqarN
++Z82lJlsTYctAzbUgMt1aK60XvTrBTqs80tTCqyrQ0EVz+r9V+lARigsk42u
+Rwvmh2g9RzrcP6xDWVpYj9lXpa4T1+iQL+ybs7G5Hi2z07add6ZDOttH959w
+A+bu7fIJdaND5/jPgpMeDWilflBn+hYdfukqD9hdaMS3B5ZkZwfTwdek3MzW
+8Qu2hTh7pIbQoUHn1/dVIV9wZmhA/9UTOky08Vcvyf2CqpGN38JD6XDhYdLt
+lJkvmLIQv/RWBB1+G9m/0fNuxkjUP07E0eH0jxNbdF60YKFUkaxRPB0GvXfT
+XcpbsM1OeeRwAscv51+u4x5oQamNMrfVX9Hh28aTvHz7WtHfayB1QwqHv3nZ
+reH6Vrx58BHPcBYdroU6r5Rc8xVfhPF86smmQ/Smn2SO3ld8N+r09HsOR29m
+uki2/Vf8F31SsekNHRK3t5fXVn5FRx7lo4Vv6eBw4FfOK9d2tC5tSPQrpcPJ
+Y5qjNePf0EBvNbGtgeOv48VvLSK7sH684IBaIyfff+dKdxR1oXmMuYJeEx00
+1Wy/6bd3of1i1JLTzXQongo/47zmO4bmy+VGfqWDnpvM6dLn37F3p+oayV90
+sKWuWxDL+oEO7U1LZX/ToU2WW+hM8w+c83OeUOmmA9dFDx/puR8o2lvwieil
+Q5+r2sLr/36iesxBr4eDdIgX/J2V3vUT70rSfvNO0qHx4/mrrO2/Ubx8pE5i
+ig6Ldj1K11i/MeJq4LvN0xx980KLRLx+Y3pt01OYpUNo6LLhvJbf2OJnbug+
+TweJW++Ll/l347bF82njfATYh6q2GUr3YvrrZRE8Swnw94zP6TDqRQ3z13fF
+BAjgX/Vyv5BXL1LzR07tFiLA10XwnVJ/LzpddV5pu4KAi4/CZGfL+7Cix+f6
+D0kCxloUZj2fD6D0Z6pZpxQBZ/So1k7NA2ibLb2/XZqApCq7OTHxQRT1Tplp
+kiHAwqnX/uC9QTwu0+j8fj0BOndvNZGeQzhivMUpXY4ARQktd9PHf1BXZcjk
+9TYCnGlXruc3/sGQ1W/2JskTsHmVwcerwiOo0W04GatAgMi/nietrBH08XRw
+fLqLAK7rW3ck947g6sxiBw81ApZmiDqmy47hxdD7DLd9BCwJKLazp43hOw+T
+PS7qBLRb9/umXh/DM0Z9o1c0CODLvP02uWYMU3+JXjmrTcB0uSJ/m/c46kpZ
+2hn/R4CS17LhYK5JDJ7fTjM4QsAxlTR1QZVJ7Pk5vus/fQJeXjG4L209iQ/S
+fYd1DAlYERcmK/p5EpsN0i6pUAnQNlTeHB4/hRfdF2xljhIg7dEyNuA4gwr5
+k5cUTQlQOCElI/9mBnsnB+202QQ0vWmmHfw7g2ftvl61OkaAdXdJ26pbs2hh
+leeWZEEAKzL4cHDUXyT0He5r2BBgAMe2G/DPo+jt8w+NzxFgo7dl93PTefxc
+bPnY4jyn3hr7dGcT59FQkxZ005aAkxWnnRuIBTy8SzG82o4AVbqEGyN1EdVW
+dicdcyGgP8OtWZ7KTU7Qv6VcvE6APJ1rOMSTm8x62Jjq4UrAe3G1M08yuEml
+paWZMe4E6OpWaTGleMjtf6MK+r0IeLzBUL2sj4dc22VW7XqPgLCso4tnknhJ
+7pRPfc+eEfBx136NuAABcqVX2PDLcALKZZJtY+oFSDnW2fHsCAK+lXzNGJcQ
+JI3n5uY+RxKwKKUf7fJUkHxirCi6JJaA5w6hB8yihUjFIT8122QCdrhecs/I
+X05qFx/VdEkhwOxVt7nL3HKSCNkMt19z4peLSgvrCJNOBwoMotIIkBMxc7xS
+KkwWP+wzb8gi4Lo4Q6i6cgV5dJf+Lc1CAmJ5vQ5YmImS53lW3tUvIuDNumNr
+pJ1ESfcvnQ9M3hFgfjwsVD9QlIz2cH5iRxJgtOTTtaEqUTKbcSjcvZhTzz+n
+3xM/RckKOZEX90oIyH4Y/Hr5vCg5+DkhMbaMgKMeoVrWu8TIhRiH1PRyAty3
+r5Ce1BMjxZy1s4oqOHhXLY4UmIuRahu+FDZXEbApoHHLJ18x0mA8uvjXewJq
+vHfECUWIkeaVlypGqwlQ17NyO5UmRnrb8dUu+0RAxVBEpk6DGBl8qK5R+jMB
+wv+5T+b/FCMTpJ63ytYQcEtC45TKuBiZP3CuY08tB9+A3ZYEbnHyI6r+1Kkj
+IGeNDy4XESc7grh6jes5fvXZtdJqjTg5avNx0KyBABXyjWW0nDjJqxU6at1I
+wHF6r0GFkjgpKXpm6moTAU9+Pu/4uF+c3P5r9z+vLxy8lvPhGQfFSa28f4sP
+mzl+GVO/ckVfnKQ+qOQNbyFgy+ofJYJUcfKUZZDgq1YCdiaTl1wY4qSj6skV
+OW2c/RAk//6tiTh5R2CHRMlXAsJ13r+qNxUnw9qnpGraCRh8M3aikC1OpqSX
+rG3/RoBAHCXPhTP2Lcxd2dzB8de94B0KnHirqqTl9Z2c9fwea39hiZPajZG8
+n7oIWPf20dgNQpxc3RU4V/md0x+i3iZspoiTEwN3Jkp+EFDomS9ZcUScrJ12
+HSz6ScCrf0PsCxw+yUvsfuX9ImBE61q7mAYHn8jp9qzfBBhGlFujMiffGtPG
+1G4C7uxZKuYkL04e2Gb0MbGHAIbOVr3968VJaRWdsrheTv8peVqwXIKTT1ul
+MKqPACkurqsT/OJkjeG27Gf9BBQtuuZOzIqRSUfXpIQMENCg1SAiPihGnrq8
+JOL+EAHGUiFn3nwSI7Vcp4PuDHP60Y9zkQZFYqT0nYH73n8IeGp8yko4RYz8
+/LzBzXmUAHE7URng+EnrU+zx05McvsQidUZVjJRqfcq0mCIgqKvp5tv1YuTY
+r/tGZtMEUF1ePO9aKkYmzl3VpM0S0EN82nehRZSUVDy8RnOegBO7UkN2XxUl
+x/apS6gtEMDNY6aayxYlPx1SXKa8yOlf/A3C9QdESZ/jK//JcTMgp/K67Q9+
+UXLU71ebOB8DwPue2kYFEfJjn8+z/uUMGKmSC1WmCJPeL8tXP1vLANdn2YHX
+PATJKsEelaR1DBBu0TkVeUCQFL0oQC1Yz4DZ2ovNq+YFyEglo5ttGxmQcsbH
+lP+GAFmQX9svI8uAjovKQVe9l5JjH76+Dd/JAB7bOavSKD5y/675puRdDPBs
+3vyn4iwf6eW/fuTtbgbn/h9ZS1PkI1eYnNrarswAl5Ta09MFvKRCR/eDtWoM
+0IxwVi/qWEKeHhk98VybM//vl/qXwEMmMSRcXuswwKwlqsRShIccy1YNLAIG
+BEv9p5nQwU16XXeu+KbLgG3ydwcbPbjJCJ75XeuPMCBpcu+d9HIusnGlAFcU
+jQFfZRV3sFsXcI3zdpk0OgNWPI8RTfVdQKtWQ1UkGCBpK9zAvW8BR54/PNfJ
+ZMCcelR0WOg8Lt8mUbeBzeD0b3fDIzZzyDFZzAtLDl/H4MZLSn+R1WCTFnmK
+ASXFPae6R2fxzKWMwggrBjSWr0henT2LPtGHm0PPMOCG98LGVxqzWCJouzzg
+HANMLSbzFegzCG1vnLztGfAosL164dkU0h25fTyvMGDhi2nTTpsptFxhFHDD
+gQHnHvKfnVaZQk/djuTrjgxwir93nVEzie+SeL9fcWHA+kvP5CeWT6KWG2Fk
+5cXRd5dGPBEzjsarwtmW3gyY/6A6QHEeR/O0X2ctbjLgQWAspcp4HN1+Onsd
+8+HokbtyRGl2DAuMInMYdxlwJT73crzpGKqvHdhwyJ+jX5FbX9X2UdTPVd15
+MIABPsofs4b5RpFN99DQCWTAVRePdtcfI+jsI2aiGcyJV5X+S0aMYO7gPj+V
+UAbscdik0rVqBFWKfCa2vGDA2YkzS1L3DGPocAzvumgG3L0zIlM+PYRzG4pX
+SsYwwF5960+3oiEsuzmvKhDHAEN/MUfScAhZ+k7XBl8yYPH4+ajLFwfRscFm
+KjuNAR9OPpEuqu7HFt47/KnpDFg17S84ENqPWmpxki8zOPjC6izDbfqRN6xL
+LSyLAfExeyrd+fsx2MLM+cYbBlhHOTEkDfswp89wRg8Z0FIptNKkpwdl1pwX
+0CEZsOVgG2WssAc9jH2l1YsZoETNsPsb2IP/pZWqK5RyxmcOaPwHPfjFUev6
+ikoGrL17/fGrqG6cWtz598tnBqQzrB7dt/+N+yTF5mw6GHDaoYy9l/kT+SPN
+dzl1MiDBYrjpqPJP/CL7ytKniwHHPvCv+yzyE5326pS/+MGAUqussvxPPzCX
+delRazdHv+8s53OUH6ga9H6j0R8GhD6QeXzk+HfkXbOKaTbCgJ5zGq4U7e/Y
+GGN522aUAYohXtVhm77j1czpvlvjDIjLllDn6evCzDrZrMJpTrzOPfjn2oVK
+ojf1dnEx4WbGwafvTDqRK/STsxY3E+xfl6xv2dKJtRtWJxnyMOGdetLk2bEO
+tNudvsKGlwmX4vR3tPp3YCq1ozlKgAkfV9iNztR/w50PNS6IiTHB7JPubX7b
+dlQQGn80sYkJl0OEjK79aMWS99bZI5uZkB3emk3BVjx+r611cAsTuh4dTb0Y
+0YoPBEq2/pZlQk5skpObaSsO8wcUNG1nAs/47M+q2hbMWLK7O1eZCfNl2fRH
+Nc2oPn/hwPWDTDC/tbfBe7YJaws7rK7pMuHpADSNfGvC8+6Mu1cOMSFw3I4a
+VNKEz/7tbzivx4TO2uIs+wdNODcrcP6YARMKxxgznpubEKcSgjUJJmzLtKL5
+mTbifyM/BuYtmbA03EL15I96NOT3URGxYsLRor1XH1XXI3WtrNvG00wQq30c
+159Zj6b6NkKHzjLB295nq7xPPZ57MSB/9zwTZtrOvk+Wr8d79Imz4g5MCHXv
+2O12vQ4/pvN1yd1igkzcgmzMvlqsrUjYpu7DBN+TMxVpW2uxsf2IncFtJiw/
+a5XdIVaL7QJ+C7a+TPCk/L2l3VqDQ5Yr1mXcZ0LctYZ+vSM1uEJM6phmMBNO
+t40FDOz6jMQV+UZaPEdP3zr+UfmPmLQ+cr15AhN0O7x0fwh9RJ6PEufPvWSC
+fKfmzJKhD5gttzjvlciEZPUCteaMDyjZ3rQt8zUTWM0GcxkHPmDbf7fcVuYy
+IUZrc9PPE9VotbZjc2sFEzb52veUFFVhwXvmpd+VTOg/nea6Ir4KJZzfvxmt
+YsITUaaz54MqLKvLNhb6wKlv3rR37fEqlPO976RZw4Qe1bEWublK7B9Vr37e
+zIRX3XczrA9VokNl0BWrXia4efH9PNtfjkEpymnmfUzgX95nqdlcjtkBNYNH
++zn85e0sFcrKcfr4snNGgxy9474osSLL0X3kpoXqCBOM9147VM8sx9urHYz4
+Z5jQWsCuZJSWYagtXTZpKQteOPDKGmeVYj592CpOgAVnFO6EcseWYtveBy8i
+BVmwRdHt2YfAUlzLVbUmaBmLc584SEY4lGJ0sI64uwgLIvmIrt0qpZhUtGuR
+IsWCtgn+wrk3JVgkItw6KseCzpf9V9k1xWho1KLOLc+CUu+WIVWyGL/ciQ0V
+3c4CBQlJSdmMYhyZ38/evYMFj+KS+3SCinHroHXzxd0s8NLWnDrOLsYHVWRT
+zz4W9OvSGGLdJB7zdqz/ps+Cb03ZPBErSOwp1NkzZMDhYxh+g/O8QMcZocA5
+QxZwSVz/+LoP8ZFdNLGGwgIDiUtKMbmIxSc+17IJFshdemLBxUCU15CvaTBj
+wbHgd6+sH73D6bGvH95fYEF3xQXngLVFaGxds77SlgWSTYk3GpYWYUxryZWy
+iyxQXfiyX3G8EKlkohReZsEcnydtU3Uhxj10Pp3twILWzLQTktcLkS4v8S/S
+lQVn9QqVRb++xcQThgqOfiwoL1172S61ABdqD9y4cp8FJvvpqsYRBcg6rFx7
++QEL6nvUpjT9CpBrh7TT+UcsUG5Zt4RlXYBHZ34XWwSygCVkevb0hgLkCfI2
+M3jGgg7zDQu9wfl4vCrv7vokFviKHvn0+0Ee8jZ4dUgmsyB+h80u3Rt5mPpN
+X1UkhQUDy/WGXl/KQ57xls7F1yxYkx2okkXNw6R1s2rfM1iQ8mtFjoNYHv51
+2P87Np8FFZbW97LD3mDouoKD29+zwO3ZfFJxdi42Obz9q9LLgpmd56epYjnY
+35DucLCPBY+PPFnbvyQHufYm9FP7WeApTb0cOJWNitP+becHOfislzCE2rPx
+ppt1QdQIC3g1tDVDXmbjbh8x12WzLNjx0H1S4GA23guxmf0haALKd2KcZtyz
+8ECexEzADhO4stN/VfWqTFxLKJ9+qGgCJRGadYPLMvFvH/Xz3Z0mIPTWqluK
+JxNz1/jFee42geFSjek7wxmo5MlFXFIxgat7olIqKzNw839DifqaJsDbFnfi
+g1sG8jdWHF80NIFirRL5yL50rPlzHS9eMIG0EIYwKycNZTrLjG/YmkCd+u7x
+7tg0PPNZpO3hRRNIDPrw7m5gGs6kxE+kXjaBu+otJTN2abjxQt32UQcTqEhJ
+ibu7Iw3tf8kHX3MzATJtF2EWn4qirc3nPB6YQLuOhQQt9jXSS/aK+6eawIUN
+IjOm5cl4uu9V4KM0E9hBL3+wJi8ZnUTXSjxMNwFv2c/TvUnJGG7Bs9Iv0wRc
+/T22R/snY/ffz6t8cjn1OBPWf9s8Gd1Uzq12eWcC4xZ7b0tPJWFC3LONlp9N
+oE1AwG+TUhL+u7O4S2nYBJZ+zKj6XvQKCzf+4QpQPArdsr3F77QT8KKJqoWG
+/VF40UmT+zkRi3ruvrct046Ce89IhOiWGBTWVlKvGT8Kt184dnldeYEDjQtR
+C2qm4LpqMNSeLxLHT3ytS7pmCq/nKE29aeHY7y38OCrfFJ7+2LXhq1MYLgul
+SIrNmgJ5cJRrMfop6t7KYhzax4ZTZVvV+QSeoI2gncw7Vzb4K/Iv/eAajLne
+6ik5+WzQ13qXELgrCEW9nZo+F7AhQ0zumsT2ILT1yl7oecuG+0bfyCdbgnCj
+pxIh844NRXMrq+Okg9DPXX7Ko4QN87f6XDp4gtDCWRr0P7ChYfvSqYrmQOS/
+NNPQ1s6G+tAnq61uBaLlRbX58W9sSH4kmLrbIxDf2jrKCXeyYeF6s/+iSyDa
+Xxhx0fnOBk2uEc2Ey4HYZtO7Lu43G2DwILfIsUBMtWqxuTTMhmdM41UU5UAU
+sJIMuPOHDYc6tfu1FQPx9CkWx/9s6N6UM71nWyBKW9Yurx9jA+1PW+6mdYF4
+80RVhto0G1K/8EevFgzEdnP+r7QZNhA7lq1axxuI+8wP856fZcMRF8E3mxcD
+cPAYeTT8HxuSxos9VScD8MixBc/sOTbEe/yOhZEAjDHTSvw0zwbtL00j1IEA
+nGO71ncvsCFa1PDsye4ANGVzHtyLbKAY/V288j0A/wd5LW6d
+        "]]}}}, {
+    DisplayFunction -> Identity, AspectRatio -> 
+     NCache[GoldenRatio^(-1), 0.6180339887498948], Axes -> {False, False}, 
+     AxesLabel -> {None, None}, AxesOrigin -> {50., 0}, DisplayFunction :> 
+     Identity, Frame -> {{True, True}, {True, True}}, FrameLabel -> {{
+        FormBox["\"dB\"", TraditionalForm], None}, {
+        FormBox["\"Frequency (MHz)\"", TraditionalForm], None}}, FrameStyle -> 
+     Automatic, 
+     FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+     GridLines -> {Automatic, Automatic}, GridLinesStyle -> Directive[
+       GrayLevel[0.4, 0.5], 
+       AbsoluteThickness[1], 
+       AbsoluteDashing[{1, 2}]], 
+     Method -> {
+      "DefaultBoundaryStyle" -> Automatic, "ScalingFunctions" -> None}, 
+     PlotRange -> {All, All}, PlotRangeClipping -> True, PlotRangePadding -> {{
+        Scaled[0.02], 
+        Scaled[0.02]}, {
+        Scaled[0.05], 
+        Scaled[0.05]}}, Ticks -> {Automatic, Automatic}}],FormBox[
+    FormBox[
+     TemplateBox[{
+       SubscriptBox["\"S\"", "\"11\""]}, "LineLegend", 
+      DisplayFunction -> (FormBox[
+        StyleBox[
+         StyleBox[
+          PaneBox[
+           TagBox[
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   GraphicsBox[{{
+                    Directive[
+                    EdgeForm[
+                    Directive[
+                    Opacity[0.3], 
+                    GrayLevel[0]]], 
+                    PointSize[0.5], 
+                    Opacity[1.], 
+                    RGBColor[0.368417, 0.506779, 0.709798], 
+                    AbsoluteThickness[1.6]], {
+                    LineBox[{{0, 10}, {20, 10}}]}}, {
+                    Directive[
+                    EdgeForm[
+                    Directive[
+                    Opacity[0.3], 
+                    GrayLevel[0]]], 
+                    PointSize[0.5], 
+                    Opacity[1.], 
+                    RGBColor[0.368417, 0.506779, 0.709798], 
+                    AbsoluteThickness[1.6]], {}}}, AspectRatio -> Full, 
+                    ImageSize -> {20, 10}, PlotRangePadding -> None, 
+                    ImagePadding -> Automatic, 
+                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #}}, 
+                 GridBoxAlignment -> {
+                  "Columns" -> {Center, Left}, "Rows" -> {{Baseline}}}, 
+                 AutoDelete -> False, 
+                 GridBoxDividers -> {
+                  "Columns" -> {{False}}, "Rows" -> {{False}}}, 
+                 GridBoxItemSize -> {"Columns" -> {{All}}, "Rows" -> {{All}}},
+                  GridBoxSpacings -> {
+                  "Columns" -> {{0.5}}, "Rows" -> {{0.8}}}], "Grid"]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{1}}, "Rows" -> {{0}}}], 
+            "Grid"], Alignment -> Left, AppearanceElements -> None, 
+           ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
+           "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
+         FontFamily -> "Arial"}, Background -> Automatic, StripOnInput -> 
+         False], TraditionalForm]& ), 
+      InterpretationFunction :> (RowBox[{"LineLegend", "[", 
+         RowBox[{
+           RowBox[{"{", 
+             RowBox[{"Directive", "[", 
+               RowBox[{
+                 RowBox[{"Opacity", "[", "1.`", "]"}], ",", 
+                 InterpretationBox[
+                  ButtonBox[
+                   TooltipBox[
+                    RowBox[{
+                    GraphicsBox[{{
+                    GrayLevel[0], 
+                    RectangleBox[{0, 0}]}, {
+                    GrayLevel[0], 
+                    RectangleBox[{1, -1}]}, {
+                    RGBColor[0.368417, 0.506779, 0.709798], 
+                    RectangleBox[{0, -1}, {2, 1}]}}, AspectRatio -> 1, Frame -> 
+                    True, FrameStyle -> 
+                    RGBColor[
+                    0.24561133333333335`, 0.3378526666666667, 
+                    0.4731986666666667], FrameTicks -> None, PlotRangePadding -> 
+                    None, ImageSize -> 
+                    Dynamic[{
+                    Automatic, 1.35 CurrentValue["FontCapHeight"]/
+                    AbsoluteCurrentValue[Magnification]}]], 
+                    "\[InvisibleSpace]"}], 
+                    "RGBColor[0.368417, 0.506779, 0.709798]"], Appearance -> 
+                   None, BaseStyle -> {}, BaselinePosition -> Baseline, 
+                   DefaultBaseStyle -> {}, ButtonFunction :> 
+                   With[{Typeset`box$ = EvaluationBox[]}, 
+                    If[
+                    Not[
+                    AbsoluteCurrentValue["Deployed"]], 
+                    SelectionMove[Typeset`box$, All, Expression]; 
+                    FrontEnd`Private`$ColorSelectorInitialAlpha = 1; 
+                    FrontEnd`Private`$ColorSelectorInitialColor = 
+                    RGBColor[0.368417, 0.506779, 0.709798]; 
+                    FrontEnd`Private`$ColorSelectorUseMakeBoxes = True; 
+                    MathLink`CallFrontEnd[
+                    FrontEnd`AttachCell[Typeset`box$, 
+                    FrontEndResource["RGBColorValueSelector"], {
+                    0, {Left, Bottom}}, {Left, Top}, 
+                    "ClosingActions" -> {
+                    "SelectionDeparture", "ParentChanged", 
+                    "EvaluatorQuit"}]]]], BaseStyle -> Inherited, Evaluator -> 
+                   Automatic, Method -> "Preemptive"], 
+                  RGBColor[0.368417, 0.506779, 0.709798], Editable -> False, 
+                  Selectable -> False], ",", 
+                 RowBox[{"AbsoluteThickness", "[", "1.6`", "]"}]}], "]"}], 
+             "}"}], ",", 
+           RowBox[{"{", #, "}"}], ",", 
+           RowBox[{"LegendMarkers", "\[Rule]", "None"}], ",", 
+           RowBox[{"LabelStyle", "\[Rule]", 
+             RowBox[{"{", "}"}]}], ",", 
+           RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}]}], "]"}]& ), 
+      Editable -> True], TraditionalForm], TraditionalForm]},
+  "Legended",
+  DisplayFunction->(GridBox[{{
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"], 
+      ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, GridBoxItemSize -> Automatic, 
+    BaselinePosition -> {1, 1}]& ),
+  Editable->True,
+  InterpretationFunction->(RowBox[{"Legended", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"Placed", "[", 
+         RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{
+  3.681564833126223*^9, 3.681564869043666*^9, {3.681564970603827*^9, 
+   3.681564977207591*^9}, 3.6815651029623404`*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{1631, 1026},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (December 4, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Info3681541033-3429628"->{
+  Cell[2239, 70, 504, 8, 60, "Print",
+   CellTags->"Info3681541033-3429628"]},
+ "Info3681542179-3429628"->{
+  Cell[15691, 424, 420, 7, 60, "Print",
+   CellTags->"Info3681542179-3429628"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Info3681541033-3429628", 66772, 1744},
+ {"Info3681542179-3429628", 66880, 1747}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 114, 1, 66, "Chapter"],
+Cell[697, 25, 425, 9, 31, "Text"],
+Cell[CellGroupData[{
+Cell[1147, 38, 98, 1, 44, "Subsection"],
+Cell[1248, 41, 124, 1, 31, "Text"],
+Cell[1375, 44, 148, 2, 32, "Input"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[1560, 51, 107, 1, 51, "Section"],
+Cell[1670, 54, 412, 8, 51, "Text"],
+Cell[CellGroupData[{
+Cell[2107, 66, 129, 2, 32, "Input"],
+Cell[2239, 70, 504, 8, 60, "Print",
+ CellTags->"Info3681541033-3429628"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[2792, 84, 174, 2, 51, "Section"],
+Cell[CellGroupData[{
+Cell[2991, 90, 110, 1, 45, "Subsection"],
+Cell[3104, 93, 127, 1, 31, "Text"],
+Cell[3234, 96, 208, 2, 99, "Input"],
+Cell[3445, 100, 466, 8, 91, "Text"],
+Cell[3914, 110, 383, 12, 32, "Text"],
+Cell[4300, 124, 219, 4, 32, "Input"],
+Cell[4522, 130, 675, 18, 73, "Text"],
+Cell[5200, 150, 178, 3, 32, "Input"],
+Cell[5381, 155, 199, 4, 31, "Text"],
+Cell[5583, 161, 161, 3, 32, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5781, 169, 145, 2, 44, "Subsection"],
+Cell[5929, 173, 386, 8, 32, "Text"],
+Cell[6318, 183, 711, 19, 55, "Input"],
+Cell[7032, 204, 132, 1, 31, "Text"],
+Cell[7167, 207, 1394, 34, 275, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8598, 246, 112, 1, 45, "Subsection"],
+Cell[8713, 249, 464, 11, 32, "Text"],
+Cell[CellGroupData[{
+Cell[9202, 264, 240, 5, 32, "Input"],
+Cell[9445, 271, 5782, 132, 197, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[15288, 410, 102, 1, 51, "Section"],
+Cell[CellGroupData[{
+Cell[15415, 415, 125, 1, 44, "Subsection"],
+Cell[CellGroupData[{
+Cell[15565, 420, 123, 2, 32, "Input"],
+Cell[15691, 424, 420, 7, 60, "Print",
+ CellTags->"Info3681542179-3429628"]
+}, Open  ]],
+Cell[16126, 434, 956, 28, 53, "Text"],
+Cell[CellGroupData[{
+Cell[17107, 466, 342, 6, 55, "Input"],
+Cell[17452, 474, 730, 23, 35, "Output"],
+Cell[18185, 499, 799, 26, 35, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19033, 531, 103, 1, 45, "Subsection"],
+Cell[19139, 534, 1664, 53, 73, "Text"],
+Cell[20806, 589, 287, 7, 32, "Text"],
+Cell[21096, 598, 320, 6, 31, "Text"],
+Cell[21419, 606, 290, 5, 31, "Text"],
+Cell[CellGroupData[{
+Cell[21734, 615, 898, 18, 32, "Input"],
+Cell[22635, 635, 965, 23, 32, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23649, 664, 112, 1, 45, "Subsection"],
+Cell[23764, 667, 1605, 50, 74, "Text"],
+Cell[25372, 719, 253, 5, 31, "Text"],
+Cell[CellGroupData[{
+Cell[25650, 728, 1126, 26, 231, "Input"],
+Cell[26779, 756, 4007, 102, 196, "Output"]
+}, Open  ]],
+Cell[30801, 861, 327, 6, 31, "Text"],
+Cell[CellGroupData[{
+Cell[31153, 871, 635, 17, 32, "Input"],
+Cell[31791, 890, 663, 19, 61, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[32515, 916, 106, 1, 51, "Section"],
+Cell[32624, 919, 3047, 104, 117, "Text"],
+Cell[35674, 1025, 296, 7, 31, "Text"],
+Cell[CellGroupData[{
+Cell[35995, 1036, 118, 1, 35, "Subsubsection"],
+Cell[36116, 1039, 250, 6, 32, "Text"],
+Cell[CellGroupData[{
+Cell[36391, 1049, 608, 14, 99, "Input"],
+Cell[37002, 1065, 866, 23, 54, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[37917, 1094, 117, 1, 35, "Subsubsection"],
+Cell[38037, 1097, 210, 6, 32, "Text"],
+Cell[CellGroupData[{
+Cell[38272, 1107, 665, 16, 99, "Input"],
+Cell[38940, 1125, 1093, 34, 82, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40082, 1165, 134, 1, 35, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[40241, 1170, 1279, 28, 231, "Input"],
+Cell[41523, 1200, 1814, 48, 66, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[43374, 1253, 141, 2, 32, "Input"],
+Cell[43518, 1257, 2899, 74, 166, "Output"]
+}, Open  ]],
+Cell[46432, 1334, 238, 6, 32, "Text"],
+Cell[CellGroupData[{
+Cell[46695, 1344, 2157, 58, 103, "Input"],
+Cell[48855, 1404, 17564, 324, 249, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
