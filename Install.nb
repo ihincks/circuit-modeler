@@ -1,0 +1,529 @@
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[         0,          0]
+NotebookDataLength[     20710,        528]
+NotebookOptionsPosition[     18756,        456]
+NotebookOutlinePosition[     19096,        471]
+CellTagsIndexPosition[     19053,        468]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["CircuitModeler Installer", "Title",
+ CellChangeTimes->{{3.6341496747488213`*^9, 3.634149689464222*^9}, {
+  3.6815508895859222`*^9, 3.6815508970751*^9}}],
+
+Cell["\<\
+To run this installer, please use the menu option \
+\[OpenCurlyDoubleQuote]Evaluation \[Rule] Evaluate Notebook\
+\[CloseCurlyDoubleQuote]. Do not save this notebook when you are done.\
+\>", "Text",
+ CellChangeTimes->{{3.525435319618247*^9, 3.525435354473632*^9}, {
+  3.525435788389865*^9, 3.525435789686059*^9}, {3.633365097573757*^9, 
+  3.633365145820388*^9}, {3.633452344485634*^9, 3.6334523550548687`*^9}}],
+
+Cell[TextData[{
+ "This installer places circuit-modeler packages inside of your ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " Applications folder (i.e. $UserbaseDirectory/Applications). To uninstall, \
+simply remove relevant files from the Applications folder. If you are running \
+a Unix-like host (Linux, MacOS, etc), symlinks will be used and therefore \
+reinstallation is only necessary when a new version introduces a new package, \
+or renames an old package. Under windows, the packages from circuit-modeler \
+are copied to the Applications folder rather than having links placed there, \
+and therefore reinstallation will be necessary for each new version. Advanced \
+users may wish to read the rest of this installation notebook and make \
+changes. "
+}], "Text",
+ CellChangeTimes->{{3.633365148334189*^9, 3.633365351212462*^9}, {
+  3.633365388124751*^9, 3.63336544847682*^9}, {3.633365480460787*^9, 
+  3.633365608956689*^9}, {3.681550904535808*^9, 3.681550906444594*^9}, {
+  3.6815510585901814`*^9, 3.6815510602831163`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Known Limitations", "Subsection",
+ CellChangeTimes->{{3.525446500284173*^9, 3.52544650373918*^9}}],
+
+Cell["\<\
+The symbolic link installer requires Windows Vista or 2008+ when under a \
+Windows host. All Unix-like operating systems should be supported, but this \
+is not tested.\
+\>", "Text",
+ CellDingbat->"\[FilledSmallCircle]",
+ CellChangeTimes->{{3.525446504688546*^9, 3.525446549683077*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Manifest", "Section",
+ CellChangeTimes->{{3.634149814407981*^9, 3.6341498425648823`*^9}, {
+  3.6341499140607862`*^9, 3.634149923543811*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Installed Packages", "Subsection",
+ CellChangeTimes->{{3.5254354567930307`*^9, 3.525435458280403*^9}, {
+  3.634149847920252*^9, 3.634149852499592*^9}}],
+
+Cell["The following files will be installed by this notebook.", "Text",
+ CellChangeTimes->{{3.525435477848207*^9, 3.525435491800005*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$CircuitModelerManifest", "=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"FileNameJoin", "[", 
+       RowBox[{"Flatten", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"NotebookDirectory", "[", "]"}], ",", "#"}], "}"}], "]"}], 
+       "]"}], "&"}], ")"}], "/@", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<CircuitModeler.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<SystemsOfEquations.m\>\""}], "}"}]}], 
+     "\[IndentingNewLine]", "}"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.525435460945401*^9, 3.525435474616168*^9}, {
+   3.525436279523308*^9, 3.525436292080901*^9}, {3.5275319840706244`*^9, 
+   3.5275319914551907`*^9}, {3.538424658630368*^9, 3.538424665643517*^9}, {
+   3.539015377900811*^9, 3.539015398666514*^9}, {3.544541802379562*^9, 
+   3.544541807044261*^9}, {3.551706792725366*^9, 3.551706793121585*^9}, {
+   3.557440101259891*^9, 3.557440106598503*^9}, {3.557530964106531*^9, 
+   3.557530974385173*^9}, {3.557582745326285*^9, 3.5575827884580603`*^9}, 
+   3.5577525639454327`*^9, {3.563296683595324*^9, 3.5632966898827267`*^9}, {
+   3.569612542466778*^9, 3.569612557204349*^9}, {3.592589809048706*^9, 
+   3.592589815599374*^9}, {3.592763999053545*^9, 3.5927640038182707`*^9}, {
+   3.593116718961628*^9, 3.593116722531275*^9}, {3.5982061879004793`*^9, 
+   3.598206190335371*^9}, {3.6051865317657537`*^9, 3.605186548316201*^9}, {
+   3.614602734498918*^9, 3.6146027416356497`*^9}, {3.633364958350953*^9, 
+   3.6333649617394342`*^9}, {3.633364996272625*^9, 3.6333649968022223`*^9}, 
+   3.6333669342880573`*^9, 3.633367607753078*^9, {3.633369680326208*^9, 
+   3.633369686644578*^9}, {3.633372289565797*^9, 3.633372312719523*^9}, {
+   3.633377213388245*^9, 3.6333772227886477`*^9}, {3.6334591735150623`*^9, 
+   3.633459182501458*^9}, 3.633525328152709*^9, {3.6337146884074697`*^9, 
+   3.633714691798613*^9}, {3.633717600443721*^9, 3.633717748583317*^9}, {
+   3.6337207642720137`*^9, 3.6337207730157547`*^9}, {3.633899842231369*^9, 
+   3.633899856603963*^9}, {3.6339001527287188`*^9, 3.633900162604114*^9}, {
+   3.633911644016655*^9, 3.633911644369728*^9}, {3.634309341751068*^9, 
+   3.634309359841619*^9}, {3.6343304619782143`*^9, 3.63433046955046*^9}, {
+   3.634332537652651*^9, 3.6343325455721817`*^9}, {3.635109004291596*^9, 
+   3.635109090099762*^9}, 3.636890736002041*^9, {3.636892040947914*^9, 
+   3.636892042702509*^9}, {3.637465751201991*^9, 3.6374657541190577`*^9}, {
+   3.681550747155179*^9, 3.681550749010247*^9}, {3.6815508734104233`*^9, 
+   3.681550883879635*^9}, {3.6815509207920303`*^9, 3.681550931569644*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Installation Paths", "Subsection",
+ CellChangeTimes->{{3.525435499040495*^9, 3.525435513415448*^9}}],
+
+Cell["\<\
+This installer will place notebooks into the following directory:\
+\>", "Text",
+ CellChangeTimes->{{3.52543555501688*^9, 3.525435566383361*^9}, {
+  3.525435668879895*^9, 3.525435669790971*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$CircuitModelerInstallPath", " ", "=", " ", 
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{"$UserBaseDirectory", " ", ",", " ", "\"\</Applications\>\""}], 
+     "}"}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.5254355153637877`*^9, 3.525435551557489*^9}, {
+   3.5254356734103937`*^9, 3.525435747588125*^9}, {3.5275320821303473`*^9, 
+   3.527532089593379*^9}, {3.6341501176772118`*^9, 3.6341501244135923`*^9}, 
+   3.634150158312275*^9, {3.6341502157773533`*^9, 3.634150236172014*^9}, {
+   3.6341504301448383`*^9, 3.634150436020206*^9}, 3.6815509416661253`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Default Installation Methods", "Subsection",
+ CellChangeTimes->{{3.525435943485697*^9, 3.525435948052216*^9}}],
+
+Cell["\<\
+Under Windows, we will install via copying whereas under Unix-like hosts, we \
+will default to installing by symlinks. This way, we remain consistent with \
+expected behavior under each respective operating system. In either case, \
+uninstalling consists of simply removing the files or symlinks placed by this \
+notebook.\
+\>", "Text",
+ CellChangeTimes->{{3.525435953837185*^9, 3.525435966204111*^9}, 
+   3.52543603513251*^9, {3.525436065307613*^9, 3.525436088291637*^9}, {
+   3.525444214890197*^9, 3.525444241212552*^9}, {3.5254463212617197`*^9, 
+   3.5254463260941133`*^9}, {3.5254463738772697`*^9, 3.525446417716638*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$CircuitModelerDefaultInstallationMethods", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\"\<Windows\>\"", "\[Rule]", "CopyInstaller"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<MacOSX\>\"", "\[Rule]", "SymLinkInstaller"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<Unix\>\"", "\[Rule]", "SymLinkInstaller"}]}], 
+    "\[IndentingNewLine]", "}"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.525436089553322*^9, 3.52543612270824*^9}, 
+   3.681550948328999*^9}],
+
+Cell["To override the defaults, change this line:", "Text",
+ CellChangeTimes->{{3.525436132812014*^9, 3.525436139442808*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"InstallationMethod", "=", 
+   RowBox[{
+   "$OperatingSystem", "/.", "$CircuitModelerDefaultInstallationMethods"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.525436125966613*^9, 3.5254361846987877`*^9}, 
+   3.681550957222796*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Installation", "Section",
+ CellChangeTimes->{{3.634149707476592*^9, 3.634149709422063*^9}, {
+  3.6341498625678177`*^9, 3.6341498634227743`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Installation Methods", "Subsection",
+ CellChangeTimes->{{3.634149768586576*^9, 3.634149772219473*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Install via copying", "Subsubsection",
+ CellChangeTimes->{{3.634149774502894*^9, 3.634149781646448*^9}}],
+
+Cell[TextData[{
+ "This method copies the current version of all circuit-modeler notebooks \
+into the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " applications directory. Thus, circuit-modeler must be reinstalled whenever \
+updates are to be applied. This is the only installation method supported by \
+Windows at the moment."
+}], "Text",
+ CellChangeTimes->{{3.525435792822315*^9, 3.525435863316667*^9}, {
+  3.681551068546899*^9, 3.6815510789153214`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"CopyInstaller", "[", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"copyfn", ",", "delfn", ",", "newfile"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"$InstallationSuccessful", "=", "False"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"newfile", "[", "file_", "]"}], ":=", 
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{"$CircuitModelerInstallPath", ",", " ", 
+          RowBox[{
+           RowBox[{"FileNameSplit", "[", "file", "]"}], 
+           "\[LeftDoubleBracket]", 
+           RowBox[{"-", "1"}], "\[RightDoubleBracket]"}]}], "}"}], "]"}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"delfn", "[", "file_", "]"}], ":=", 
+       RowBox[{"Which", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"DirectoryQ", "[", 
+          RowBox[{"newfile", "[", "file", "]"}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"DeleteDirectory", "[", 
+          RowBox[{
+           RowBox[{"newfile", "[", "file", "]"}], ",", 
+           RowBox[{"DeleteContents", "\[Rule]", "True"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"FileExistsQ", "[", 
+          RowBox[{"newfile", "[", "file", "]"}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"DeleteFile", "[", 
+          RowBox[{"newfile", "[", "file", "]"}], "]"}]}], 
+        "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"copyfn", "[", "file_", "]"}], ":=", 
+       RowBox[{"CopyFile", "[", 
+        RowBox[{"file", ",", 
+         RowBox[{"newfile", "[", "file", "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Check", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Map", "[", 
+            RowBox[{"delfn", ",", "$CircuitModelerManifest"}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Map", "[", 
+            RowBox[{"copyfn", ",", "$CircuitModelerManifest"}], "]"}], ";"}], 
+          ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Abort", "[", "]"}], ";"}]}], "\[IndentingNewLine]", "]"}],
+         "\[IndentingNewLine]", "$InstallationSuccessful"}], "=", "True"}], 
+      ";"}]}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.5254359685954533`*^9, 3.525435971968472*^9}, {
+   3.525436218358471*^9, 3.5254362587643757`*^9}, {3.525436296355434*^9, 
+   3.5254363311133423`*^9}, {3.52753201540971*^9, 3.527532035821933*^9}, 
+   3.584201401177031*^9, 3.584462639106015*^9, {3.586196245276492*^9, 
+   3.586196248138856*^9}, {3.633366737846429*^9, 3.633366749834128*^9}, {
+   3.6333667866859217`*^9, 3.6333667869944572`*^9}, {3.63336703423059*^9, 
+   3.633367099971985*^9}, {3.633367137344747*^9, 3.633367140191794*^9}, {
+   3.633367242157856*^9, 3.6333672433779163`*^9}, 3.633368067493248*^9, {
+   3.681550966168869*^9, 3.681550975958117*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Install via symbolic link", "Subsubsection",
+ CellChangeTimes->{{3.634149783963932*^9, 3.6341497880932217`*^9}}],
+
+Cell["\<\
+The following function adds quotations to string expressions so that special \
+characters in directory names will be run correction.\
+\>", "Text",
+ CellChangeTimes->{{3.557057551647327*^9, 3.557057574588867*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"StringQuote", "[", "expr_", "]"}], ":=", 
+   RowBox[{"StringJoin", "[", 
+    RowBox[{"\"\<\\\"\>\"", ",", "expr", ",", "\"\<\\\"\>\""}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.557057368280011*^9, 3.5570573954575853`*^9}}],
+
+Cell[TextData[{
+ "This method",
+ StyleBox[" ",
+  FontSlant->"Italic"],
+ "places links to circuit-modeler into the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " applications directory. As such, updates to circuit-modeler are \
+automatically reflected."
+}], "Text",
+ CellChangeTimes->{{3.525435431825179*^9, 3.525435453672186*^9}, {
+  3.525435866222183*^9, 3.525435935020404*^9}, {3.525446316144227*^9, 
+  3.525446316494594*^9}, {3.681551083098669*^9, 3.681551090203917*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SymLinkInstaller", "::", "badRunCode"}], " ", "=", " ", 
+   "\"\<Non-zero runcode `1` returned while using Run to create symlink for \
+`2`\>\""}], ";"}]], "Input",
+ CellChangeTimes->{{3.633367523154132*^9, 3.633367582185259*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SymLinkInstaller", "[", "]"}], ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"cmdname", ",", " ", "symlinkfn", ",", "runCodes"}], "}"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"$InstallationSuccessful", "=", "False"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"cmdname", " ", "=", " ", 
+       RowBox[{"$OperatingSystem", " ", "/.", " ", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"\"\<Windows\>\"", "\[Rule]", "\"\<mklink\>\""}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"\"\<MacOSX\>\"", "\[Rule]", "\"\<ln -sf\>\""}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"\"\<Unix\>\"", "\[Rule]", "\"\<ln -sf\>\""}]}], 
+         "\[IndentingNewLine]", "}"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"symlinkfn", "[", "file_", "]"}], ":=", " ", 
+       RowBox[{"Run", "[", 
+        RowBox[{"cmdname", ",", " ", 
+         RowBox[{"StringQuote", "[", "file", "]"}], ",", 
+         RowBox[{"StringQuote", "[", "$CircuitModelerInstallPath", "]"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Check", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"runCodes", "=", 
+          RowBox[{"Map", "[", 
+           RowBox[{"symlinkfn", ",", " ", "$CircuitModelerManifest"}], 
+           "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"Table", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+              "runCodes", "\[LeftDoubleBracket]", "n", 
+               "\[RightDoubleBracket]"}], "=!=", "0"}], ",", 
+             RowBox[{"Message", "[", 
+              RowBox[{
+               RowBox[{"SymLinkInstaller", "::", "badRunCode"}], ",", 
+               RowBox[{
+               "runCodes", "\[LeftDoubleBracket]", "n", 
+                "\[RightDoubleBracket]"}], ",", 
+               RowBox[{
+               "$CircuitModelerManifest", "\[LeftDoubleBracket]", "n", 
+                "\[RightDoubleBracket]"}]}], "]"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", 
+            RowBox[{"n", ",", 
+             RowBox[{"Length", "@", "runCodes"}]}], "}"}]}], 
+          "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Abort", "[", "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"$InstallationSuccessful", "=", "True"}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.525435979160592*^9, 3.525435983480468*^9}, {
+   3.5254363840857162`*^9, 3.5254364033218527`*^9}, {3.525436521020783*^9, 
+   3.525436546501786*^9}, {3.5254462446849337`*^9, 3.52544629532658*^9}, {
+   3.557057582793292*^9, 3.5570575907616653`*^9}, {3.6333667535845547`*^9, 
+   3.633366760642056*^9}, {3.6333667964119*^9, 3.6333667967480593`*^9}, {
+   3.633367113149303*^9, 3.633367133194345*^9}, {3.633367204303544*^9, 
+   3.633367257674914*^9}, {3.6333673846369753`*^9, 3.633367506086434*^9}, {
+   3.633367622731634*^9, 3.633367708659686*^9}, {3.6333679566781683`*^9, 
+   3.633367957883765*^9}, 3.633368064586405*^9, {3.681550992062635*^9, 
+   3.6815510001116343`*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Actual Installation", "Subsection",
+ CellChangeTimes->{{3.634149875213026*^9, 3.6341498781384687`*^9}}],
+
+Cell["\<\
+We have now defined everything we need to run the installer, and will proceed \
+to do so.\
+\>", "Text",
+ CellChangeTimes->{{3.5254360112205343`*^9, 3.525436025451297*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"InstallationMethod", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"DocumentationInstaller", "[", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"If", "[", 
+  RowBox[{"$InstallationSuccessful", ",", "\[IndentingNewLine]", 
+   RowBox[{"ChoiceDialog", "[", 
+    RowBox[{
+    "\"\<Installation of circuit-modeler seems to have been successful!\>\"", 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"\"\<OK\>\"", "\[Rule]", "Null"}], "}"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ChoiceDialog", "[", 
+    RowBox[{
+    "\"\<Installation appears to have failed...see bottom of notebook for \
+messages.\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{"\"\<OK\>\"", "\[Rule]", "Null"}], "}"}]}], "]"}]}], 
+  "\[IndentingNewLine]", "]"}]}], "Input",
+ CellChangeTimes->{{3.525436026387775*^9, 3.525436055128552*^9}, {
+  3.633366770187891*^9, 3.6333667764874477`*^9}, {3.633366820775969*^9, 
+  3.633366884520808*^9}, {3.633366975087285*^9, 3.6333669788347187`*^9}, {
+  3.6333671566907053`*^9, 3.633367178029696*^9}, {3.633452153077476*^9, 
+  3.6334521587672787`*^9}, {3.68155104659446*^9, 3.6815510490495787`*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1440, 880},
+WindowMargins->{{-10, Automatic}, {Automatic, -10}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (December 4, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[422, 15, 158, 2, 93, "Title"],
+Cell[583, 19, 419, 7, 31, "Text"],
+Cell[1005, 28, 1041, 17, 91, "Text"],
+Cell[CellGroupData[{
+Cell[2071, 49, 104, 1, 44, "Subsection"],
+Cell[2178, 52, 295, 6, 31, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2510, 63, 146, 2, 65, "Section"],
+Cell[CellGroupData[{
+Cell[2681, 69, 157, 2, 45, "Subsection"],
+Cell[2841, 73, 137, 1, 31, "Text"],
+Cell[2981, 76, 2746, 47, 99, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5764, 128, 106, 1, 44, "Subsection"],
+Cell[5873, 131, 203, 4, 31, "Text"],
+Cell[6079, 137, 618, 11, 32, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6734, 153, 116, 1, 44, "Subsection"],
+Cell[6853, 156, 635, 10, 51, "Text"],
+Cell[7491, 168, 542, 12, 121, "Input"],
+Cell[8036, 182, 125, 1, 31, "Text"],
+Cell[8164, 185, 265, 7, 32, "Input"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8478, 198, 150, 2, 65, "Section"],
+Cell[CellGroupData[{
+Cell[8653, 204, 108, 1, 44, "Subsection"],
+Cell[CellGroupData[{
+Cell[8786, 209, 110, 1, 35, "Subsubsection"],
+Cell[8899, 212, 464, 10, 51, "Text"],
+Cell[9366, 224, 3059, 69, 385, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12462, 298, 118, 1, 35, "Subsubsection"],
+Cell[12583, 301, 222, 4, 31, "Text"],
+Cell[12808, 307, 280, 7, 32, "Input"],
+Cell[13091, 316, 482, 12, 31, "Text"],
+Cell[13576, 330, 276, 6, 32, "Input"],
+Cell[13855, 338, 3348, 72, 407, "Input"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17252, 416, 109, 1, 44, "Subsection"],
+Cell[17364, 419, 181, 4, 31, "Text"],
+Cell[17548, 425, 1168, 26, 143, "Input"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
