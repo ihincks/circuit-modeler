@@ -14,6 +14,12 @@ This library is in many ways still very basic; it was an overkill project to spa
  - Apply Kirchoff's laws to circuit graphs to get circuit equations in time or Laplace domain.
  - Compute S (scattering), X, or Y matrices of circuits with an arbitrary number of ports. Compute ABCD matrix for two-port devices.
  - Visualize circuit graphs, plot S-parameters, etc.
+ - 
+ 
+## Example
+
+The following example computes and plots the S11 parameter of a matched RLC circuit.
+![Screenshot](doc/readme-example.png)
 
 ## License
 
