@@ -11,7 +11,7 @@ Open the notebook `Install.nb` and follow the directions there.
 
 ## Features
 
-This library is in many ways still very basic; it was an overkill project to spare some people from having to do some easy calculations by hand. Still, it is very useful if you want to do any of the following easily and symbolically:
+This library is in many ways still very basic; it was an overkill project to spare some non-electrical-engineers from having to do some easy calculations by hand. Still, it is very useful if you want to do any of the following easily and symbolically:
 
  - Express circuits as abitrary graphs of lumped elements, much like in SPICE, however, component values can be symbolic.
  - Apply KirchoffsLaws to circuit graphs to get circuit equations in time or Laplace domain.
