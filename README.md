@@ -1,13 +1,10 @@
 # circuit-modeler
 Tools for working with lumped element electrical circuits in *Mathematica*.
 
-## Requirements
+## Requirements and Installation
 
-Tested with *Mathematica* 10.0.2. Should work with *Mathematica* 9 and higher, but is untested.
-
-## Installation
-
-Open the notebook `Install.nb` and follow the directions there.
+ - Tested with *Mathematica* 10.0.2. Should work with *Mathematica* 9 and higher, but is untested.
+ - Open the notebook `Install.nb` and follow the directions there.
 
 ## Features
 
